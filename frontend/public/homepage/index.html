@@ -7,6 +7,7 @@
   <link rel="icon" href= "/FrontEnd/assets/images/logo.png"/>
   <link rel="stylesheet" href="/FrontEnd/public/homepage/styles/general.css">
   <link rel="stylesheet" href="/FrontEnd/public/homepage/styles/header.css">
+  <link rel="stylesheet" href="/FrontEnd/public/homepage/styles/main.css">
 </head>
 <body>
   <div class="header">
@@ -15,24 +16,91 @@
         <img src="/FrontEnd//assets/images/logo.png" alt="">
       </div>
       <div class="logo-name">
-        Trail Tents
+        <a id="links" href="#main">Trail Tents</a>
       </div>
     </div>
     <div id="right-section">
       <div class="header-menu-btn">
-        Services
+        <a id="links" href="#about-section">About</a>
       </div>
       <div class="header-menu-btn">
-        About
+        <a id="links" href="#contact-section">Contact</a>
       </div>
-      <div class="header-menu-btn">
-        Contact
-      </div>
-      <div class="header-menu-btn" id="login-btn">
-        Login
+      <div class="header-menu-btn" id="login-btn-container">
+        <button id="login-btn">Login</button>
       </div>
     </div>
   </div>
-  </header>
+  <div class="main" id="main">
+    <div class="section" id="welcome-section">
+      <div class="heading" id="welcome-txt">
+        Welcome to 
+        <p id="main-title">Trail Tents</p>
+        <p id="welcome-moto">Explore. Equip. Embrace the Outdoors.</p>
+      </div>
+      <div id="search-area">
+        <div id="search-box-container">
+          <input id="search-box" type="text">
+        </div>
+        <div id="search-btn-container">
+          <button id="search-btn">
+            Search
+          </button>
+        </div>
+      </div>
+      <div id="filter-area">
+        <div class="picker">
+          <p class="picker-heading">Check-in date</p>
+          <input type="date" name="booking-start-date" class="datepicker" id="datepicker-start">
+        </div>
+        <div class="picker">
+          <p class="picker-heading">Check-out date</p>
+          <input type="date" name="booking-end-date" class="datepicker" id="datepicker-end">
+        </div>
+        <div class="picker">
+          <p class="picker-heading">Price</p>
+        </div>
+      </div>
+      <div class="photos" id="welcome-photos">
+        <div class="welcome-photo-container" id="wp-1">
+          <img id="welcome-photo" src="/frontend/assets/images/wp1.webp" alt="">
+          <p id="book-btn">Book Now</p>
+        </div>
+        <div class="welcome-photo-container" id="wp-2">
+          <img id="welcome-photo" src="/frontend/assets/images/wp2.jpg" alt="">
+          <p id="book-btn">Book Now</p>
+        </div>
+        <div class="welcome-photo-container" id="wp-3">
+          <img id="welcome-photo" src="/frontend/assets/images/wp3.jpg" alt="">
+          <p id="book-btn">Book Now</p>
+        </div>
+        <div class="welcome-photo-container" id="wp-4">
+          <img id="welcome-photo" src="/frontend/assets/images/wp4.webp" alt="">
+          <p id="book-btn">Book Now</p>
+        </div>
+      </div>
+      <div id="welcome-paragraph-container">
+        <p id="welcome-paragraph">Escape to nature and explore the great outdoors with us!</p>
+        <div id="get-started-container">
+          <button id="get-started-btn">Get Started</button>
+        </div>
+      </div>
+    </div>
+      <div class="section" id="about-section">
+        <h2>About Us</h2>
+        <div id="vision-container">
+          <p id="vision-paragraph">"Trail Tents aims to lead the outdoor gear industry, inspiring confidence in exploration while championing sustainability and customer satisfaction."</p>
+          <p id="vision-txt">Vision</p>
+        </div>
+        <div id="mission-container">
+          <p id="mission-paragraph">"Equip adventurers with top-tier, eco-friendly gear, fostering a deeper bond with nature through quality and innovation."</p>
+          <p id="mission-txt">Our Mission</p>
+        </div>
+      </div>
+      <div class="section" id="contact-section">
+        <h2>Contact</h2>
+                  <img src="/FrontEnd//assets/images/istockphoto-147953682-612x612.jpg" alt="">
+      </div>
+  </div>
 </body>
 </html>
