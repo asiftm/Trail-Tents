@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add User</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css">
+
+    <script>
+      $(document).ready(function() {
+            $("#post").click(function(){
+                var username = prompt("Please enter your username:")
+				var password = prompt("Please enter your password:")
+                if(username && password){
+                    var user = new Object();
+                    user.Firstname = $("#fname").val();
+                    user.Lastname = $("#lname").val();
+                    user.DateOfBirth = $("#dob").val();
+                    user.Email = $("#email").val();
+                    user.Address = $("#address").val();
+                    user.ContactNumber = $("#contactNumber").val();
+                    user.Password = $("#password").val();
+                    $.ajax({
+                    type:"POST",
+                    url:"https://localhost:5272/User",
+                    data: JSON.stringify(user),
+                    dataType: "json",
+                    contentType: "application/json",
+                    headers: {
+                        "Authorization": "Basic " + btoa(username+":"+password)
+                        },
+                    })
+                    .done(function(result) {
+                        console.log(result);
+                    })
+                    .fail(function(error) {
+                        console.log(error);
+                    });
+                }
+            });
+      });
+    </script>
+
+</head>
+<body>
+    <form class="pure-form pure-form-stacked">
+        <fieldset>
+            <legend>Add an user</legend>
+            <label for="fname">Firstname</label>
+            <input type="text" id="fname" required>
+            <br>
+            <label for="lname">Lastname</label>
+            <input type="text" id="lname" required>
+            <br>
+            <label for="dob">Date of birth</label>
+            <input type="text" id="dob" required>
+            <br>
+            <label for="email">Email</label>
+            <input type="text" id="email" required>
+            <br>
+            <label for="address">Address</label>
+            <input type="text" id="address" required>
+            <br>
+            <label for="contactNumber">Contact number</label>
+            <input type="text" id="contactNumber" required>
+            <br>
+            <label for="password">Password</label>
+            <input type="text" id="password" required>
+            <br>
+            <input type="button" id="post" value="Post this user!">
+        </fieldset>
+    </form>
+    
+</body>
+</html>

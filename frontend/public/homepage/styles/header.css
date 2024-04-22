@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Stick&family=Tienne:wght@400;700;900&family=Fira+Code:wght@300..700&family=Ysabeau+Infant:ital,wght@0,1..1000;1,1..1000&display=swap');
+
+/* font-family: "Stick", sans-serif;
+font-family: "Tienne", serif;
+font-family: "Ysabeau Infant", sans-serif;
+font-family: "Fira Code", monospace; */
+
+.header{
+  width: 100%;
+  height: 80px;
+  font-family: "Ysabeau Infant", sans-serif;
+  display: flex;
+  flex-direction: row;
+  padding: 5px 20px;
+  font-size: 30px;
+  font-weight: bolder;
+}
+#left-section{
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  padding: 0px 5px;
+}
+
+.logo img{
+  height: 80px;
+}
+
+.logo-name{
+  font-family: "Stick", sans-serif;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.2s;
+}
+
+.logo-name:hover{
+  transform: scale(1.2);
+}
+
+#right-section{
+  margin-right: 40px;
+  justify-content:flex-end;
+  flex: 1;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.header-menu-btn{
+  margin: 0px 20px;
+  transition: transform 0.2s;
+}
+
+.header-menu-btn:hover{
+  transform: scale(1.2);
+}
+
+#login-btn{
+  background-color: black;
+  color: white;
+  border-radius: 25px;
+  padding: 0px 10px 5px 10px;
+  font-weight: 600;
+  font-size:25px;
+}
