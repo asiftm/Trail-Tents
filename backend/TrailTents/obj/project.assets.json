@@ -821,11 +821,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DSPS\\Semester4\\TrailTents\\TrailTents\\TrailTents.csproj",
+      "projectUniqueName": "D:\\DSPS\\Semester4\\Trail Tents\\backend\\TrailTents\\TrailTents.csproj",
       "projectName": "TrailTents",
-      "projectPath": "D:\\DSPS\\Semester4\\TrailTents\\TrailTents\\TrailTents.csproj",
+      "projectPath": "D:\\DSPS\\Semester4\\Trail Tents\\backend\\TrailTents\\TrailTents.csproj",
       "packagesPath": "C:\\Users\\asifm\\.nuget\\packages\\",
-      "outputPath": "D:\\DSPS\\Semester4\\TrailTents\\TrailTents\\obj\\",
+      "outputPath": "D:\\DSPS\\Semester4\\Trail Tents\\backend\\TrailTents\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\asifm\\AppData\\Roaming\\NuGet\\NuGet.Config",
