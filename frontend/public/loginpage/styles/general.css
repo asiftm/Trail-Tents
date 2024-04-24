@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Stick&family=Tienne:wght@400;700;900&family=Fira+Code:wght@300..700&family=Ysabeau+Infant:ital,wght@0,1..1000;1,1..1000&display=swap');
+
+/* font-family: "Stick", sans-serif;
+font-family: "Tienne", serif;
+font-family: "Ysabeau Infant", sans-serif;
+font-family: "Fira Code", monospace; */
+
+body{
+  margin: 0;
+  background-color: #D7E4C0;
+  color: #313638;
+}

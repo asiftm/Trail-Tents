@@ -1,15 +1,14 @@
 .header{
-  width: 100%;
   height: 80px;
   font-family: "Ysabeau Infant", sans-serif;
   display: flex;
   flex-direction: row;
-  padding: 5px 0px 5px 5px;
-  font-size: 30px;
+  flex-wrap: wrap;
+  padding: 5px 10px; /* Adjust padding for better spacing */
+  font-size: 20px; /* Reduce font size for smaller screens */
   font-weight: bolder;
-  position: fixed;
-  background-color: #D7E4C0;
   z-index: 100;
+  background-color: #D7E4C0;
 }
 
 #links{
@@ -18,16 +17,16 @@
 }
 
 #left-section{
-  height: 100%;
+  flex: 1;
+  height: 100%; /* Adjust height to fill entire header */
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-right: 10px;
-  padding: 0px 5px;
+  padding-left: 20px;
 }
 
 .logo img{
-  height: 80px;
+  height: 60px; /* Reduce logo height for smaller screens */
 }
 
 .logo-name{
@@ -42,16 +41,15 @@
 }
 
 #right-section{
-  margin-right: 30px;
-  justify-content:flex-end;
   flex: 1;
   display: flex;
-  box-sizing: border-box;
+  justify-content: flex-end;
   align-items: center;
+  padding-right: 20px;
 }
 
 .header-menu-btn{
-  margin: 0px 20px;
+  margin: 0px 10px; /* Adjust margin for better spacing */
   transition: transform 0.2s;
 }
 
@@ -59,15 +57,15 @@
   transform: scale(1.2);
 }
 
-#login-btn{
+#login-btn,#start-btn{
   height: 40px;
-  width: 100px;
-  padding-bottom: 20px;
+  width: inherit;
+  padding: 0px 10px;
   border: none;
   border-radius: 20px;
-  background-color: #313638;
+  background-color: #19747E;
   color: #D7E4C0;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 700;
   transition: 0.3s;
   font-family: "Ysabeau Infant", sans-serif;
@@ -75,4 +73,40 @@
 
 #login-btn:hover{
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    height: auto; /* Allow header height to adjust based on content */
+    padding: 10px; /* Increase padding for better spacing */
+    flex-direction: column; /* Change to column layout for smaller screens */
+    align-items: center; /* Center items vertically */
+  }
+
+  .logo img {
+    height: 50px; /* Reduce logo height further for smaller screens */
+  }
+
+  .logo-name {
+    margin: 5px 0; /* Adjust margin for better spacing */
+    font-size: 16px; /* Reduce font size further for smaller screens */
+  }
+
+  #right-section {
+    justify-content: center; /* Center items horizontally */
+  }
+
+  .header-menu-btn {
+    margin: 5px; /* Adjust margin for better spacing */
+  }
+
+  #login-btn,#start-btn {
+    height: 35px; /* Reduce button height for smaller screens */
+    width: 100px; /* Reduce button width for smaller screens */
+    font-size: 14px; /* Reduce font size further for smaller screens */
+  }
+
+  .main{
+    padding-top: 180px;
+    }
 }
