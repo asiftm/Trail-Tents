@@ -43,9 +43,7 @@ D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\TrailTents.run
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\TrailTents.dll
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\TrailTents.pdb
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
-D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\Microsoft.OpenApi.dll
-D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\MySqlConnector.dll
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\RestSharp.dll
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
@@ -72,3 +70,4 @@ D:\DSPS\Semester4\Trail Tents\backend\TrailTents\obj\Debug\net7.0\refint\TrailTe
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\obj\Debug\net7.0\TrailTents.pdb
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\obj\Debug\net7.0\TrailTents.genruntimeconfig.cache
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\obj\Debug\net7.0\ref\TrailTents.dll
+D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\LiteDB.dll

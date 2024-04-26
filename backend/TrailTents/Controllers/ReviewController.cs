@@ -7,30 +7,30 @@ namespace TrailTents.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class ReviewController : Controller
+    public class ReviewController : ControllerBase
     {
-        private IAnonymousDataContext _anonymousDataContext;
-        public ReviewController(IAnonymousDataContext anonymousDataContext)
+        private DataInterface _dataContextInterface;
+        public ReviewController(DataInterface dataContextInterface)
         {
-            _anonymousDataContext = anonymousDataContext;
+            _dataContextInterface = dataContextInterface;
         }
         [HttpGet]
-        public ActionResult GetReviews()
+        public ActionResult<IEnumerable<Review>> GetReviews()
         {
-            return Ok(_anonymousDataContext.GetAllReviews());
+            return Ok(_dataContextInterface.GetAllReviews());
         }
         [HttpGet("{id}")]
-        public ActionResult GetReview(int id)
+        public ActionResult<Review> GetReview(int id)
         {
-            Review review = _anonymousDataContext.GetReviewByID(id);
+            Review review = _dataContextInterface.GetReviewByID(id);
             if (review.Rating != null) return Ok(review);
             return BadRequest("Invalid ID");
         }
         [HttpPost]
         public ActionResult PostReview([FromBody] Review review)
         {
-            if (_anonymousDataContext.AddReview(review)) return Ok();
-            return BadRequest(review);
+            _dataContextInterface.AddReview(review);
+            return Ok();
         }
     }
 }

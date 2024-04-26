@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using MySqlConnector;
 using Newtonsoft.Json;
 using System.Text.Json;
 using TrailTents.Database;
@@ -12,49 +11,44 @@ namespace TrailTents.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
-        private IAnonymousDataContext _anonymousDataContext;
-        public UserController(IAnonymousDataContext anonymousDataContext)
+        private DataInterface _dataInterface;
+        public UserController(DataInterface dataInterface)
         {
-            _anonymousDataContext = anonymousDataContext;
+            _dataInterface = dataInterface;
         }
         [HttpGet]
-        public ActionResult GetUsers()
+        public ActionResult<IEnumerable<User>> GetAllUsers()
         {
-            return Ok(_anonymousDataContext.GetAllUsers());
+            return Ok(_dataInterface.GetAllUsers());
         }
         [HttpGet("{id}")]
         public ActionResult GetUser(int id)
         {
-            User user = _anonymousDataContext.GetUserByID(id);
+            User user = _dataInterface.GetUserByID(id);
             if (user.Firstname != null) return Ok(user);
             return BadRequest("Invalid ID");
         }
-        [HttpGet("{id}/Reviews")]
-        public ActionResult GetReviews(int id)
+        /*[HttpGet("{id}/Reviews")]
+        public ActionResult<User> GetUserByID(int id)
         {
-            try
-            {
-                return Ok(_anonymousDataContext.GetReviewsByUserID(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Invalid ID");
-            }
-        }
+            User user = _dataInterface.GetUserByID(id);
+            if (user.Firstname != null) return Ok(user);
+            return BadRequest("Invalid ID");
+
+        }*/
         [HttpPost]
-        [Authorize(Policy = "BasicAuthentication")]
         public ActionResult PostUser([FromBody] User user)
         {
-            if (_anonymousDataContext.AddUser(user)) return Ok();
-            return BadRequest(user);
+            _dataInterface.AddUser(user);
+            return Ok();
         }
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
-            if (_anonymousDataContext.UpdateUser(user,id)) return Ok();
+            if (_dataInterface.UpdateUser(user,id)) return Ok();
             return BadRequest(user);
-        }
+        }*/
     }
 }

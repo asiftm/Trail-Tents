@@ -8,14 +8,22 @@
     ".NETCoreApp,Version=v7.0": {
       "TrailTents/1.0.0": {
         "dependencies": {
+          "LiteDB": "5.0.19",
           "Microsoft.AspNetCore.OpenApi": "7.0.5",
-          "MySqlConnector": "2.3.6",
           "Newtonsoft.Json": "13.0.3",
           "RestSharp": "110.2.0",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
           "TrailTents.dll": {}
+        }
+      },
+      "LiteDB/5.0.19": {
+        "runtime": {
+          "lib/netstandard2.0/LiteDB.dll": {
+            "assemblyVersion": "5.0.19.0",
+            "fileVersion": "5.0.19.0"
+          }
         }
       },
       "Microsoft.AspNetCore.OpenApi/7.0.5": {
@@ -30,30 +38,11 @@
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
-      "Microsoft.Extensions.Logging.Abstractions/7.0.1": {
-        "runtime": {
-          "lib/net7.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.723.27404"
-          }
-        }
-      },
       "Microsoft.OpenApi/1.4.3": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
             "assemblyVersion": "1.4.3.0",
             "fileVersion": "1.4.3.0"
-          }
-        }
-      },
-      "MySqlConnector/2.3.6": {
-        "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "7.0.1"
-        },
-        "runtime": {
-          "lib/net7.0/MySqlConnector.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.3.6.0"
           }
         }
       },
@@ -128,6 +117,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "LiteDB/5.0.19": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-O8XPBptE4SygW2SN6skqg/VDVTrjpJ0p6+i7Cp8x8razbu2ORLSd6ep3JdhDIdL6h57Bcxv2BuVaN70IKpXI0Q==",
+      "path": "litedb/5.0.19",
+      "hashPath": "litedb.5.0.19.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.OpenApi/7.0.5": {
       "type": "package",
       "serviceable": true,
@@ -142,26 +138,12 @@
       "path": "microsoft.extensions.apidescription.server/6.0.5",
       "hashPath": "microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.Abstractions/7.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-pkeBFx0vqMW/A3aUVHh7MPu3WkBhaVlezhSZeb1c9XD0vUReYH1TLFSy5MxJgZfmz5LZzYoErMorlYZiwpOoNA==",
-      "path": "microsoft.extensions.logging.abstractions/7.0.1",
-      "hashPath": "microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512"
-    },
     "Microsoft.OpenApi/1.4.3": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-rURwggB+QZYcSVbDr7HSdhw/FELvMlriW10OeOzjPT7pstefMo7IThhtNtDudxbXhW+lj0NfX72Ka5EDsG8x6w==",
       "path": "microsoft.openapi/1.4.3",
       "hashPath": "microsoft.openapi.1.4.3.nupkg.sha512"
-    },
-    "MySqlConnector/2.3.6": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-DyWErA3jFsJAAn4x6ha09cmmrw/zvjM0/lYUXzV45f0CiY0ZCIwDHGb7wMsIlXr9JaCBOp4i3uZF/HumEPeV+A==",
-      "path": "mysqlconnector/2.3.6",
-      "hashPath": "mysqlconnector.2.3.6.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
