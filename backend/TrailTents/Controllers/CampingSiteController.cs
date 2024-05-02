@@ -6,48 +6,54 @@ namespace TrailTents.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class CampingSiteController : ControllerBase
+    public class CampingSiteController : Controller
     {
-        private DataInterface _dataContextInterface;
-        public CampingSiteController(DataInterface dataContextInterface)
+        private IAnonymousDataContext _anonymousDataContext;
+        public CampingSiteController(IAnonymousDataContext anonymousDataContext)
         {
-            _dataContextInterface = dataContextInterface;
+            _anonymousDataContext = anonymousDataContext;
         }
+
         [HttpGet]
-        public ActionResult<IEnumerable<CampingSite>> GetAllCampingSites()
+        public ActionResult GetCampingSites()
         {
-            return Ok(_dataContextInterface.GetAllCampingSites());
+            return Ok(_anonymousDataContext.GetAllCampingSites());
         }
         [HttpGet("{id}")]
-        public ActionResult<CampingSite> GetCampsite(int id)
+        public ActionResult GetCampsite(int id)
         {
-            CampingSite campingSite = _dataContextInterface.GetCampingSiteByID(id);
+            CampingSite campingSite = _anonymousDataContext.GetCampingSiteByID(id);
             if (campingSite.Name != null) return Ok(campingSite);
             return BadRequest("Invalid ID");
         }
-        /*[HttpGet("{id}/Reviews")]
+        [HttpGet("{id}/Reviews")]
         public ActionResult GetReviews(int id)
         {
             try
             {
-                return Ok(_dataContextInterface.GetReviewsByCampingSiteID(id));
+                return Ok(_anonymousDataContext.GetReviewsByCampingSiteID(id));
             }
             catch (Exception ex)
             {
                 return BadRequest("Invalid ID");
             }
-        }*/
+        }
         [HttpPost]
         public ActionResult PostCampingSite([FromBody] CampingSite campingSite)
         {
+<<<<<<< HEAD
             _dataContextInterface.AddCampingSite(campingSite);
             return Ok(campingSite);
+=======
+            if (_anonymousDataContext.AddCampingSite(campingSite)) return Ok();
+            return BadRequest(campingSite);
+>>>>>>> parent of 50d09b4 (get,getbyid.post converted to litedb)
         }
-        /*[HttpPut("{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateCampingSite(int id, [FromBody] CampingSite campingSite)
         {
-            if (_dataContextInterface.UpdateCampingSite(campingSite,id)) return Ok();
+            if (_anonymousDataContext.UpdateCampingSite(campingSite,id)) return Ok();
             return BadRequest(campingSite);
-        }*/
+        }
     }
 }

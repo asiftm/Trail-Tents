@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using MySqlConnector;
 using Newtonsoft.Json;
 using System.Text.Json;
 using TrailTents.Database;
@@ -11,44 +12,54 @@ namespace TrailTents.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class UserController : ControllerBase
+    public class UserController : Controller
     {
-        private DataInterface _dataInterface;
-        public UserController(DataInterface dataInterface)
+        private IAnonymousDataContext _anonymousDataContext;
+        public UserController(IAnonymousDataContext anonymousDataContext)
         {
-            _dataInterface = dataInterface;
+            _anonymousDataContext = anonymousDataContext;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAllUsers()
+        public ActionResult GetUsers()
         {
-            return Ok(_dataInterface.GetAllUsers());
+            return Ok(_anonymousDataContext.GetAllUsers());
         }
         [HttpGet("{id}")]
         public ActionResult GetUser(int id)
         {
-            User user = _dataInterface.GetUserByID(id);
+            User user = _anonymousDataContext.GetUserByID(id);
             if (user.Firstname != null) return Ok(user);
             return BadRequest("Invalid ID");
         }
-        /*[HttpGet("{id}/Reviews")]
-        public ActionResult<User> GetUserByID(int id)
+        [HttpGet("{id}/Reviews")]
+        public ActionResult GetReviews(int id)
         {
-            User user = _dataInterface.GetUserByID(id);
-            if (user.Firstname != null) return Ok(user);
-            return BadRequest("Invalid ID");
-
-        }*/
+            try
+            {
+                return Ok(_anonymousDataContext.GetReviewsByUserID(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Invalid ID");
+            }
+        }
         [HttpPost]
+        [Authorize(Policy = "BasicAuthentication")]
         public ActionResult PostUser([FromBody] User user)
         {
+<<<<<<< HEAD
             _dataInterface.AddUser(user);
             return Ok(user);
+=======
+            if (_anonymousDataContext.AddUser(user)) return Ok();
+            return BadRequest(user);
+>>>>>>> parent of 50d09b4 (get,getbyid.post converted to litedb)
         }
-        /*[HttpPut("{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
-            if (_dataInterface.UpdateUser(user,id)) return Ok();
+            if (_anonymousDataContext.UpdateUser(user,id)) return Ok();
             return BadRequest(user);
-        }*/
+        }
     }
 }

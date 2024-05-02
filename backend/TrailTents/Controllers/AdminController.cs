@@ -7,36 +7,36 @@ namespace TrailTents.Controllers
 
     [ApiController]
     [Route("[Controller]")]
-    public class AdminController : ControllerBase
+    public class AdminController : Controller
     {
-        private DataInterface _dataInterface;
-        public AdminController(DataInterface dataInterface)
+        private IAnonymousDataContext _anonymousDataContext;
+        public AdminController(IAnonymousDataContext anonymousDataContext)
         {
-            _dataInterface = dataInterface;
+            _anonymousDataContext = anonymousDataContext;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<Admin>> GetAllAdmins()
+        public ActionResult GetAdmins()
         {
-            return Ok(_dataInterface.GetAllAdmins());
+            return Ok(_anonymousDataContext.GetAllAdmins());
         }
         [HttpGet("{id}")]
-        public ActionResult<Admin> GetAdmin(int id)
+        public ActionResult GetAdmin(int id)
         {
-            Admin admin = _dataInterface.GetAdminByID(id);
+            Admin admin = _anonymousDataContext.GetAdminByID(id);
             if (admin.Firstname != null) return Ok(admin);
             return BadRequest("Invalid ID");
         }
         [HttpPost]
         public ActionResult PostAdmin([FromBody] Admin admin)
         {
-            _dataInterface.AddAdmin(admin);
-            return Ok(admin);
+            if (_anonymousDataContext.AddAdmin(admin)) return Ok();
+            return BadRequest(admin);
         }
-        /*[HttpPut("{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateAdmin(int id, [FromBody] Admin admin)
         {
             if (_anonymousDataContext.UpdateAdmin(admin,id)) return Ok();
             return BadRequest(admin);
-        }*/
+        }
     }
 }

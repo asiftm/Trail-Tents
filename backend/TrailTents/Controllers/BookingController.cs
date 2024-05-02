@@ -6,30 +6,30 @@ namespace TrailTents.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class BookingController : ControllerBase
+    public class BookingController : Controller
     {
-        private DataInterface _dataContextInterface;
-        public BookingController(DataInterface dataContextInterface)
+        private IAnonymousDataContext _anonymousDataContext;
+        public BookingController(IAnonymousDataContext anonymousDataContext)
         {
-            _dataContextInterface = dataContextInterface;
+            _anonymousDataContext = anonymousDataContext;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<Booking>> GetAllBookings()
+        public ActionResult GetBookings()
         {
-            return Ok(_dataContextInterface.GetAllBookings());
+            return Ok(_anonymousDataContext.GetAllBookings());
         }
         [HttpGet("{id}")]
-        public ActionResult<Booking> GetBooking(int id)
+        public ActionResult GetBooking(int id)
         {
-            Booking booking = _dataContextInterface.GetBookingByID(id);
+            Booking booking = _anonymousDataContext.GetBookingByID(id);
             if (booking.CampsiteID != null) return Ok(booking);
             return BadRequest("Invalid ID");
         }
         [HttpPost]
         public ActionResult PostBookings([FromBody] Booking booking)
         {
-            _dataContextInterface.AddBooking(booking);
-            return Ok(booking);
+            if(_anonymousDataContext.AddBooking(booking)) return Ok(booking);
+            return BadRequest();
         }
         
     }

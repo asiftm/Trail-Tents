@@ -23,7 +23,7 @@ namespace TrailTents
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSingleton(typeof(DataInterface), typeof(LiteDdContext));
+            builder.Services.AddSingleton(typeof(IAnonymousDataContext), typeof(AnonymousDataContext));
 
             //BasicAuthenticationScheme
             builder.Services
