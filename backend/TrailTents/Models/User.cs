@@ -5,6 +5,8 @@ namespace TrailTents.Models
 {
     public class User
     {
+        //CREATE TABLE `trailtents`.`user` (`ID` INT NOT NULL AUTO_INCREMENT , `Firstname` VARCHAR(65) NOT NULL , `Lastname` VARCHAR(65) NOT NULL , `Date_of_Birth` DATE NOT NULL , `Email` VARCHAR(65) NOT NULL , `Address` VARCHAR(65) NOT NULL , `Contact_Number` VARCHAR(65) NOT NULL , `Password` VARCHAR(65) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+        
         Data data = new Data();
         public int ID { get; private set; }
         public string Firstname { get; set; }

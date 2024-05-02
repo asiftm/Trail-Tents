@@ -5,6 +5,8 @@ namespace TrailTents.Models
 {
     public class Review
     {
+        //CREATE TABLE `trailtents`.`review` (`ID` INT NOT NULL AUTO_INCREMENT , `Campsite_ID` INT NOT NULL , `User_ID` INT NOT NULL , `Rating` INT NOT NULL , `Comment` VARCHAR(65) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+
         Data data = new Data();
         public int ID { get; private set; }
         public int CampsiteID { get; set; }

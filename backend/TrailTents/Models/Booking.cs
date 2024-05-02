@@ -5,6 +5,8 @@ namespace TrailTents.Models
 {
     public class Booking
     {
+        //CREATE TABLE `trailtents`.`booking` (`ID` INT NOT NULL AUTO_INCREMENT , `Campsite_ID` INT NOT NULL , `User_ID` INT NOT NULL , `Booking_Start_Date` DATE NOT NULL , `Booking_End_Date` DATE NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+
         Data data = new Data();
         public int ID { get; private set; }
         public int CampsiteID { get; set; }

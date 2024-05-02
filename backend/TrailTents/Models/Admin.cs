@@ -1,10 +1,13 @@
-﻿using MySqlConnector;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using MySqlConnector;
 using TrailTents.Database;
 
 namespace TrailTents.Models
 {
     public class Admin
     {
+        //CREATE TABLE `trailtents`.`admin` (`ID` INT NOT NULL , `Firstname` VARCHAR(65) NOT NULL, `Lastname` VARCHAR(65) NOT NULL, `Email` VARCHAR(65) NOT NULL, `Address` VARCHAR(65) NOT NULL, `Contact_Number` VARCHAR(65) NOT NULL, `Password` VARCHAR(65) NOT NULL ) ENGINE = InnoDB;
+
         Data data = new Data();
         public int ID { get; private set; }
         public string Firstname { get; set; }

@@ -6,6 +6,8 @@ namespace TrailTents.Models
 {
     public class CampingSite
     {
+        //CREATE TABLE `trailtents`.`campsite` (`ID` INT NOT NULL AUTO_INCREMENT , `Name` VARCHAR(65) NOT NULL , `Location` VARCHAR(128) NOT NULL , `Description` VARCHAR(500) NOT NULL , `Price_per_Day` INT NOT NULL , `Rating` FLOAT NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+
         Data data = new Data();
         public int ID { get; private set; }
         public string Name { get; set; }
