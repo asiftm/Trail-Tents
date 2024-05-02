@@ -47,13 +47,8 @@ namespace TrailTents.Controllers
         [Authorize(Policy = "BasicAuthentication")]
         public ActionResult PostUser([FromBody] User user)
         {
-<<<<<<< HEAD
-            _dataInterface.AddUser(user);
-            return Ok(user);
-=======
             if (_anonymousDataContext.AddUser(user)) return Ok();
             return BadRequest(user);
->>>>>>> parent of 50d09b4 (get,getbyid.post converted to litedb)
         }
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)

@@ -41,13 +41,10 @@ namespace TrailTents.Controllers
         [HttpPost]
         public ActionResult PostCampingSite([FromBody] CampingSite campingSite)
         {
-<<<<<<< HEAD
-            _dataContextInterface.AddCampingSite(campingSite);
+            _anonymousDataContext.AddCampingSite(campingSite);
             return Ok(campingSite);
-=======
             if (_anonymousDataContext.AddCampingSite(campingSite)) return Ok();
             return BadRequest(campingSite);
->>>>>>> parent of 50d09b4 (get,getbyid.post converted to litedb)
         }
         [HttpPut("{id}")]
         public IActionResult UpdateCampingSite(int id, [FromBody] CampingSite campingSite)
