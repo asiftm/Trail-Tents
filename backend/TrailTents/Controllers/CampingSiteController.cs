@@ -41,7 +41,7 @@ namespace TrailTents.Controllers
         public ActionResult PostCampingSite([FromBody] CampingSite campingSite)
         {
             _dataContextInterface.AddCampingSite(campingSite);
-            return Ok();
+            return Ok(campingSite);
         }
         /*[HttpPut("{id}")]
         public IActionResult UpdateCampingSite(int id, [FromBody] CampingSite campingSite)

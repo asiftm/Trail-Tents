@@ -42,7 +42,7 @@ namespace TrailTents.Controllers
         public ActionResult PostUser([FromBody] User user)
         {
             _dataInterface.AddUser(user);
-            return Ok();
+            return Ok(user);
         }
         /*[HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
