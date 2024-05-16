@@ -44,7 +44,6 @@ namespace TrailTents.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Policy = "BasicAuthentication")]
         public ActionResult PostUser([FromBody] User user)
         {
             if (_anonymousDataContext.AddUser(user)) return Ok();

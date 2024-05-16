@@ -35,8 +35,6 @@ D:\DSPS\Semester4\TrailTents\TrailTents\bin\Debug\net7.0\Microsoft.Extensions.Lo
 D:\DSPS\Semester4\TrailTents\TrailTents\bin\Debug\net7.0\MySqlConnector.dll
 D:\DSPS\Semester4\TrailTents\TrailTents\bin\Debug\net7.0\RestSharp.dll
 D:\DSPS\Semester4\TrailTents\TrailTents\bin\Debug\net7.0\Newtonsoft.Json.dll
-D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\appsettings.Development.json
-D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\appsettings.json
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\TrailTents.exe
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\TrailTents.deps.json
 D:\DSPS\Semester4\Trail Tents\backend\TrailTents\bin\Debug\net7.0\TrailTents.runtimeconfig.json
