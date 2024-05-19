@@ -102,5 +102,9 @@ namespace TrailTents.Database
         {
             return user.UpdateUser(user,id);
         }
+        public User VerifyUser(string email, string password)
+        {
+            return user.VerifyUser(email,password);
+        }
     }
 }

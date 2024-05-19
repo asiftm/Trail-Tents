@@ -8,7 +8,7 @@ const routes = [
   {
     name: "UserLogin",
     component: UserLogin,
-    path: "/login",
+    path: "/",
   },
   {
     name: "UserSignup",
@@ -18,7 +18,7 @@ const routes = [
   {
     name: "UserHome",
     component: UserHome,
-    path: "/",
+    path: "/home",
   },
 ];
 

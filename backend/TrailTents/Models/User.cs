@@ -63,7 +63,6 @@ namespace TrailTents.Models
             }
             return false;
         }
-
         public bool CheckAllFields(User user)
         {
             if (user.Firstname != null && user.Lastname != null && user.DateOfBirth != null && user.Email != null && user.Address != null && user.ContactNumber != null && user.Password != null) return true;
@@ -78,6 +77,19 @@ namespace TrailTents.Models
                 return true;
             }
             return false;
+        }
+        public User VerifyUser(string email,string password)
+        {
+            User user = null;
+
+            string query = $"SELECT * FROM `user` WHERE Email = '{email}' and Password='{password}';";
+            MySqlDataReader reader = data.SelectQuery(query);
+            while (reader.Read())
+            {
+                user = new User();
+                FillUser(reader, user);
+            }
+            return user;
         }
     }
 }

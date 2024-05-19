@@ -24,6 +24,7 @@ namespace TrailTents.Controllers
         {
             return Ok(_anonymousDataContext.GetAllUsers());
         }
+
         [HttpGet("{id}")]
         public ActionResult GetUser(int id)
         {
@@ -31,6 +32,7 @@ namespace TrailTents.Controllers
             if (user.Firstname != null) return Ok(user);
             return BadRequest("Invalid ID");
         }
+
         [HttpGet("{id}/Reviews")]
         public ActionResult GetReviews(int id)
         {
@@ -43,17 +45,33 @@ namespace TrailTents.Controllers
                 return BadRequest("Invalid ID");
             }
         }
+
         [HttpPost]
         public ActionResult PostUser([FromBody] User user)
         {
             if (_anonymousDataContext.AddUser(user)) return Ok();
             return BadRequest(user);
         }
+
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
             if (_anonymousDataContext.UpdateUser(user,id)) return Ok();
             return BadRequest(user);
+        }
+
+        [HttpGet("Verification")]
+        public ActionResult VerifyUser(string email, string password)
+        {
+            User user = _anonymousDataContext.VerifyUser(email,password);
+            try
+            {
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Invalid ID");
+            }
         }
     }
 }

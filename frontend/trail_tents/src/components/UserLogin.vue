@@ -3,14 +3,21 @@
     <div class="login form">
       <header>Login</header>
       <form>
-        <input type="text" placeholder="Enter your email" />
-        <input type="password" placeholder="Enter your password" />
-        <button class="button">Login</button>
+        <input type="text" placeholder="Enter your email" v-model="email" />
+        <input
+          type="password"
+          placeholder="Enter your password"
+          v-model="password"
+        />
+        <p>{{ errorMessage }}</p>
+        <button class="button" v-on:click.prevent="LoginRequirements()">
+          Login
+        </button>
       </form>
       <div class="signup">
         <span class="signup">
           Don't have an account?
-          <label>Signup</label>
+          <label v-on:click="LoadSignUpPage()">Signup</label>
         </span>
       </div>
     </div>
@@ -18,8 +25,51 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "UserLogin",
+  data() {
+    return {
+      email: "",
+      password: "",
+      errorMessage: "",
+    };
+  },
+  methods: {
+    LoadSignUpPage() {
+      this.$router.push({ name: "UserSignup" });
+    },
+    async Login() {
+      try {
+        let result = await axios.get(
+          `https://localhost:5272/User/Verification?email=${this.email}&password=${this.password}`
+        );
+
+        if (result.status == 200 && result.data != null) {
+          console.log(result);
+          localStorage.setItem("userInfo", JSON.stringify(result.data));
+          this.$router.push({ name: "UserHome" });
+        } else {
+          this.errorMessage = "Wrong email or password!";
+        }
+      } catch (error) {
+        this.errorMessage("An error occurred. Please try again.");
+      }
+    },
+    LoginRequirements() {
+      if (this.email.length > 0 && this.password.length > 0) {
+        this.Login();
+      } else {
+        this.errorMessage = "Fill email and password!";
+      }
+    },
+  },
+  mounted() {
+    let user = localStorage.getItem("userInfo");
+    if (user) {
+      this.$router.push({ name: "UserHome" });
+    }
+  },
 };
 </script>
 
@@ -57,7 +107,8 @@ body {
   text-align: center;
   margin-bottom: 1rem;
 }
-.form input, button {
+.form input,
+button {
   height: 50px;
   width: 100%;
   padding: 0 15px;
@@ -80,10 +131,15 @@ body {
   cursor: pointer;
   transition: 0.4s;
 }
+.form p {
+  margin-bottom: -10px;
+  color: red;
+}
 .form .button:hover {
   background: #006653;
 }
-.signup {
+.signup,
+p {
   font-size: 17px;
   text-align: center;
 }

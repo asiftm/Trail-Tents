@@ -5,7 +5,7 @@
       <form class="form">
         <input type="text" placeholder="Enter your Firstname" v-model="firstname" /> 
         <input type="text" placeholder="Enter your Lastname" v-model="lastname" />
-        <input type="date" placeholder="Enter your Date of birth" v-model="dateOfBirth" />
+        <input id="datepicker" type="date" placeholder="Enter your Date of birth" v-model="dateOfBirth" />
         <input type="text" placeholder="Enter your Email" v-model="email" />
         <input type="text" placeholder="Enter your Address" v-model="address" />
         <input type="text" placeholder="Enter your Contact Number" v-model="contactNumber" />
@@ -16,7 +16,7 @@
       <div class="signup">
         <span class="signup"
           >Already have an account?
-          <label for="check">Login</label>
+          <label for="check" v-on:click="LoadLoginPage()">Login</label>
         </span>
       </div>
     </div>
@@ -52,11 +52,19 @@ export default {
       });
       console.log(result)
       if(result.status == 200){
-        this.$router.push({name:"UserLogin"})
-        
+        this.$router.push({name:"UserLogin"});
       }
+    },
+    LoadLoginPage(){
+      this.$router.push({name:"UserLogin"});
     }
   },
+  mounted(){
+    let user = localStorage.getItem("userInfo");
+    if(user){
+      this.$router.push({name:"UserHome"})
+    }
+  }
 };
 </script>
 
