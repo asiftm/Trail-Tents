@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-bind:class="{ 'sidebar': true, 'sidebar-open': isSidebarOpen }">
-      <button v-on:click="ToggleSidebar()" class="close-btn">Close</button>
+      <!-- <button v-on:click="ToggleSidebar()" class="close-btn">Close</button> -->
       <p id="username">{{username}}</p>
       <ul class="menu-options">
         <li>Edit Profile</li>
@@ -115,7 +115,6 @@ export default {
   font-size: 14px;
   font-weight: bolder;
   z-index: 100;
-  background-color: #D7E4C0;
   color: #313638;
 }
 
@@ -146,7 +145,7 @@ export default {
   border: none;
   border-radius: 20px;
   background-color: #19747E;
-  color: #D7E4C0;
+  color: #fff;
   font-weight: 500;
   transition: 0.3s;
 }
@@ -168,10 +167,10 @@ export default {
 
 .sidebar {
   position: fixed;
-  top: 0;
+  top: 10px;
+  bottom: 10px;
   right: -400px;
   width: 300px;
-  height: 100%;
   background-color: #D7E4C0;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
   transition: right 0.5s;
@@ -179,24 +178,25 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  border-radius: 10px;
 }
 
 .sidebar-open {
   right: 0;
 }
 
-.close-btn {
-  padding: 5px;
+/* .close-btn {
+  padding: 5px 8px;
   align-self: flex-start;
   border: none;
   border-radius: 30px;
   background-color: #135D66;
-  color: #D7E4C0;
+  color: #fff;
   font-weight: 500;
   transition: 0.3s;
-  font-size: 10px;
+  font-size: 14px;
   height: 30px;
-}
+} */
 
 #username{
   align-self: flex-end;
@@ -224,8 +224,9 @@ export default {
   padding: 10px;
   font-weight: 500;
   transition: 0.3s;
-  background-color: #003C43;
-  color: #D7E4C0;
+  background-color: #135D66;
+  color: #fff;
+  font-size: 14px;
 }
 #logout-btn:hover{
   transition: transform 0.2s;

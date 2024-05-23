@@ -85,7 +85,6 @@ export default {
 body {
   min-height: 100vh;
   width: 100%;
-  background: #009579;
 }
 .container {
   position: absolute;
