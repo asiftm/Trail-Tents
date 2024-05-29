@@ -11,7 +11,8 @@
         <input type="text" placeholder="Enter your Contact Number" v-model="contactNumber" />
         <input type="password" placeholder="Create a password" v-model="password" />
         <input type="password" placeholder="Confirm your password" v-model="confirmPassword" />
-        <button class="button" v-on:click.prevent="signUp()">Signup</button>
+        <p class = "message" >{{ message }}</p>
+        <button class="button" v-on:click.prevent="CheckFields()">Signup</button>
       </form>
       <div class="signup">
         <span class="signup"
@@ -36,11 +37,42 @@ export default {
       address: "",
       contactNumber: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      message: ""
     }
   },
   methods: {
-    async signUp(){
+    CheckFields(){
+      if(this.firstname.length > 0 && this.lastname.length > 0 && this.email.length > 0 && this.address.length > 0 && this.contactNumber.length > 0 && this.password.length > 0)
+      {
+        if(this.password == this.confirmPassword)
+        {
+          if(this.UniqueEmail() == true)
+          {
+            this.SignUp();
+          }
+          else
+          {
+            this.message = "Use unique password";
+          }
+        }
+        else{
+          this.message = "Passwords are not same";
+        }
+      }
+      else{
+        this.message ="Fill all fields";
+      }
+    }
+    ,
+    async UniqueEmail(){
+      let decision = await axios.get(`https://localhost:5272/User/${this.email}/UniqueEmail`);
+      console.log(decision.data)
+      if(decision.data.value == true) return true;
+      return false;
+    }
+    ,
+    async SignUp(){
       let result = await axios.post("https://localhost:5272/User", {
         firstname: this.firstname,
         lastname: this.lastname,
@@ -118,6 +150,7 @@ button {
 .form a:hover {
   text-decoration: underline;
 }
+
 .button {
   color: #fff;
   background: #009579;
@@ -132,7 +165,12 @@ button {
 .button:hover {
   background: #006653;
 }
-.signup {
+
+.message{
+  color: red;
+}
+
+.signup, .message {
   font-size: 15px;
   text-align: center;
 }

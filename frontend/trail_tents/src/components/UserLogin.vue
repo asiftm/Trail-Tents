@@ -1,24 +1,34 @@
 <template>
-  <div class="container">
-    <div class="login form">
-      <header>Login</header>
-      <form>
-        <input type="text" placeholder="Enter your email" v-model="email" />
-        <input
-          type="password"
-          placeholder="Enter your password"
-          v-model="password"
-        />
-        <p>{{ errorMessage }}</p>
-        <button class="button" v-on:click.prevent="LoginRequirements()">
-          Login
-        </button>
-      </form>
-      <div class="signup">
-        <span class="signup">
-          Don't have an account?
-          <label v-on:click="LoadSignUpPage()">Signup</label>
-        </span>
+  <div class="main">
+    <div class="heading" id="welcome-txt">
+      Welcome to
+      <p id="main-title">Trail Tents</p>
+      <p id="welcome-moto">Explore. Equip. Embrace the Outdoors.</p>
+    </div>
+    <div class="container">
+      <div class="login form">
+        <header>Login</header>
+        <form>
+          <input type="text" placeholder="Enter your email" v-model="email" />
+          <input
+            type="password"
+            placeholder="Enter your password"
+            v-model="password"
+          />
+          <p>{{ errorMessage }}</p>
+          <button class="button" v-on:click.prevent="LoginRequirements()">
+            Login
+          </button>
+        </form>
+        <div class="forgetPassword">
+          <label v-on:click="LoadSignUpPage()">Forget Password?</label>
+        </div>
+        <div class="signup">
+          <span class="signup">
+            Don't have an account?
+            <label v-on:click="LoadSignUpPage()">Signup</label>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -76,26 +86,47 @@ export default {
 <style scoped>
 /* Import Google font - Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Stick&family=Tienne:wght@400;700;900&family=Fira+Code:wght@300..700&family=Ysabeau+Infant:ital,wght@0,1..1000;1,1..1000&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-body {
+.main{
   min-height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.heading{
+  text-align: center;
+}
+#welcome-txt {
+  font-size: 50px;
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;
+}
+#main-title {
+  font-size: 80px;
+  font-family: "Stick", sans-serif;
+}
+
+#welcome-moto {
+  font-size: 30px;
+  font-weight: 400;
 }
 .container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   max-width: 430px;
   width: 100%;
   background: #fff;
   border-radius: 7px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  margin-left: -260px;
 }
 .container .form {
   padding: 2rem;
@@ -138,15 +169,18 @@ button {
   background: #006653;
 }
 .signup,
-p {
+p,
+.forgetPassword {
   font-size: 17px;
   text-align: center;
 }
-.signup label {
+.signup label,
+.forgetPassword label {
   color: #009579;
   cursor: pointer;
 }
-.signup label:hover {
+.signup label:hover,
+.forgetPassword label:hover {
   text-decoration: underline;
 }
 </style>

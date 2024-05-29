@@ -38,5 +38,6 @@ namespace TrailTents.Database
         bool AddUser(User user);
         bool UpdateUser(User user, int id);
         User VerifyUser(string email, string password);
+        bool UniqueEmail(string email);
     }
 }

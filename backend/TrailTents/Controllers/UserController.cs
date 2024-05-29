@@ -73,5 +73,13 @@ namespace TrailTents.Controllers
                 return BadRequest("Invalid ID");
             }
         }
+
+        [HttpGet("{email}/UniqueEmail")]
+        public bool UniqueEmail(string email)
+        {
+            User user = new User();
+            if(user.UniqueEmail(email)) return (true);
+            return (false);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using System.Reflection.PortableExecutable;
 using TrailTents.Database;
 
 namespace TrailTents.Models
@@ -90,6 +91,16 @@ namespace TrailTents.Models
                 FillUser(reader, user);
             }
             return user;
+        }
+        public bool UniqueEmail(string email)
+        {
+            string query = $"SELECT * FROM `user` WHERE Email = '{email}';";
+            MySqlDataReader reader = data.SelectQuery(query);
+            if (!reader.HasRows)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

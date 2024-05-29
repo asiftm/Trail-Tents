@@ -106,5 +106,9 @@ namespace TrailTents.Database
         {
             return user.VerifyUser(email,password);
         }
+        public bool UniqueEmail(string email)
+        {
+            return user.UniqueEmail(email);
+        }
     }
 }
