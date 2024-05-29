@@ -1,5 +1,9 @@
 <template>
   <div class="main">
+    <div id="circle1"></div>
+    <div id="circle2"></div>
+    <div id="circle3"></div>
+    <div id="circle4"></div>
     <div class="heading" id="welcome-txt">
       Welcome to
       <p id="main-title">Trail Tents</p>
@@ -92,16 +96,14 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
 }
 .main{
   min-height: 100vh;
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content:space-around;
   align-items: center;
-  height: 100%;
-  width: 100%;
 }
 .heading{
   text-align: center;
@@ -110,6 +112,7 @@ export default {
   font-size: 50px;
   font-family: "Ysabeau Infant", sans-serif;
   font-weight: 600;
+  color: black;
 }
 #main-title {
   font-size: 80px;
@@ -123,7 +126,7 @@ export default {
 .container {
   max-width: 430px;
   width: 100%;
-  background: #fff;
+  background-color: #ffffff;
   border-radius: 7px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   margin-left: -260px;
@@ -182,5 +185,45 @@ p,
 .signup label:hover,
 .forgetPassword label:hover {
   text-decoration: underline;
+}
+
+#circle1{
+  position: absolute;
+  z-index: -10;
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  background-color: #163020;
+  left: 80%;
+}
+
+#circle2{
+  position: absolute;
+  z-index: -20;
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  background-color: #304D30;
+  left: 60%;
+}
+
+#circle3{
+  position: absolute;
+  z-index: -30;
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  background-color: #B6C4B6;
+  left: 40%;
+}
+
+#circle4{
+  position: absolute;
+  z-index: -40;
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  background-color: #EEF0E5;
+  left: 20%;
 }
 </style>

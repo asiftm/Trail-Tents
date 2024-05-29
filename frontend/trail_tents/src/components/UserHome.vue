@@ -4,9 +4,9 @@
       <!-- <button v-on:click="ToggleSidebar()" class="close-btn">Close</button> -->
       <p id="username">{{username}}</p>
       <ul class="menu-options">
-        <li>Edit Profile</li>
-        <li>My Bookings</li>
-        <li>My Reviews</li>
+        <li v-on:click="UserProfile()">Edit Profile</li>
+        <li v-on:click="UserBookings()">My Bookings</li>
+        <li v-on:click="UserReviews()">My Reviews</li>
       </ul>
       <button v-on:click="Logout()" id="logout-btn">Log Out</button>
     </div>
@@ -24,16 +24,65 @@
         <button v-on:click="ToggleSidebar()">Menu</button>
       </div>
     </div>
-    <!-- <div class="main" id="main">
-    <div class="section" id="welcome-section">
-      <div class="heading" id="welcome-txt">
-        Welcome to 
-        <p id="main-title">Trail Tents</p>
-        <p id="welcome-moto">Explore. Equip. Embrace the Outdoors.</p>
+    <div class="section">
+      <div id="campsite-area">
+        <div class="campsite-container">
+          <div class="site-photo">
+
+          </div>
+          <div class="book-container">
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+        <div class="campsite-container">
+          <div class="site-photo">
+
+          </div>
+          <div class="book-container">
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+        <div class="campsite-container">
+          <div class="site-photo">
+
+          </div>
+          <div class="book-container">
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+        <div class="campsite-container">
+          <div class="site-photo">
+
+          </div>
+          <div class="book-container">
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+        <div class="campsite-container">
+          <div class="site-photo">
+
+          </div>
+          <div class="book-container">
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+        <div class="campsite-container">
+          <div class="site-photo">
+              
+          </div>
+          <div class="book-container">
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+      </div>
+      <div id="more-btn-area">
+        <button id="more-btn">
+            See More
+          </button>
       </div>
       <div id="search-area">
         <div id="search-box-container">
-          <input id="search-box" type="text">
+          <input id="search-box" type="text" placeholder="Campsite name">
         </div>
         <div id="search-btn-container">
           <button id="search-btn">
@@ -55,11 +104,7 @@
           <input type="date" name="booking-end-date" class="datepicker" id="datepicker-end">
         </div>
       </div>
-      <div id="welcome-paragraph-container">
-        <p id="welcome-paragraph">Escape to nature and explore the great outdoors with us!</p>
-      </div>
     </div>
-  </div> -->
   </div>
 </template>
 
@@ -84,6 +129,15 @@ export default {
     Logout(){
       localStorage.clear();
       this.$router.push({name:"UserLogin"});
+    },
+    UserProfile(){
+      this.$router.push({name:"UserProfile"})
+    },
+    UserBookings(){
+      this.$router.push({name:"UserBookings"})
+    },
+    UserReviews(){
+      this.$router.push({name:"UserReviews"})
     }
   },
   mounted(){
@@ -101,35 +155,38 @@ export default {
 
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
 }
 .header {
-  height: 60px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  font-weight: bolder;
   z-index: 100;
   color: #313638;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
 .left{
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 20px;
 }
 
 .logo img {
-  height: 40px;
+  height: 60px;
 }
 
 .left p {
   margin: 7px 0 10px 5px;
+  font-family: "Stick", sans-serif;
 }
 
 .right{
@@ -137,6 +194,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: end;
+  margin-right: 20px;
 }
 
 .right button{
@@ -144,15 +202,13 @@ export default {
   margin: 0 3px;
   border: none;
   border-radius: 20px;
-  background-color: #19747E;
-  color: #fff;
-  font-weight: 500;
+  background-color: #F3CA52;
   transition: 0.3s;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .right button, .close-btn, .menu-options li:hover {
-  transition: transform 0.2s;
-  transform: scale(1.1);
+  transform: scale(1.05);
   cursor: pointer;
 }
 
@@ -171,7 +227,7 @@ export default {
   bottom: 10px;
   right: -400px;
   width: 300px;
-  background-color: #D7E4C0;
+  background-color: #F3CA52;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
   transition: right 0.5s;
   z-index: 300;
@@ -184,19 +240,6 @@ export default {
 .sidebar-open {
   right: 0;
 }
-
-/* .close-btn {
-  padding: 5px 8px;
-  align-self: flex-start;
-  border: none;
-  border-radius: 30px;
-  background-color: #135D66;
-  color: #fff;
-  font-weight: 500;
-  transition: 0.3s;
-  font-size: 14px;
-  height: 30px;
-} */
 
 #username{
   align-self: flex-end;
@@ -211,7 +254,7 @@ export default {
 .menu-options li {
   margin: 10px 0;
   padding: 10px;
-  background-color: #fff;
+  background-color: #F6E9B2;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
@@ -222,16 +265,14 @@ export default {
   border-radius: 5px;
   border: none;
   padding: 10px;
-  font-weight: 500;
   transition: 0.3s;
-  background-color: #135D66;
+  background-color: #0A6847;
   color: #fff;
-  font-size: 14px;
 }
 #logout-btn:hover{
-  transition: transform 0.2s;
-  transform: scale(1.05);
   cursor: pointer;
+  background-color: #006653;
+  transform: scale(1.05);
 }
 
 .overlay {
@@ -243,4 +284,133 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 250;
 }
+
+#campsite-area{
+  margin-top: 30px;
+  padding: 10px 30px;
+  height: 240px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.campsite-container{
+  height: 220px;
+  width: 220px;
+  background-color: greenyellow;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.book-container{
+  position: absolute;
+  top: 210px;
+  left: 190px;
+}
+
+.book-btn{
+  background-color: #F3CA52;
+  border: none;
+  border-radius: 50px;
+  padding: 2px 5px;
+}
+
+#more-btn-area {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-items:center;
+}
+
+#search-area {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-items:center;
+}
+
+#search-box-container{
+  margin-right: 10px;
+}
+
+#search-box {
+  height: 46px;
+  width: 400px;
+  max-width: 400px;
+  border-radius: 20px;
+  border: none;
+  background-color: #F3CA52;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  outline: none;
+  padding: 0px 12px;
+}
+
+#search-btn,#more-btn {
+  height: 46px;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 20px;
+  border: none;
+  background-color:#F3CA52;
+  padding: 0px 10px 5px 10px;
+  font-size:25px;
+  transition: 0.2s;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+#search-btn:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+#filter-area {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.picker {
+  height: auto;
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.picker-heading{
+  font-size: 24px;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.datepicker {
+  width: 100%;
+  max-width: 170px;
+  background-color: #F3CA52;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 15px;
+  transition: 0.2s;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #F3CA52;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 </style>

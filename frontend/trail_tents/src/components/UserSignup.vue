@@ -1,5 +1,10 @@
 <template>
-  <div class="container">
+  <div class="main">
+    <div id="circle1"></div>
+    <div id="circle2"></div>
+    <div id="circle3"></div>
+    <div id="circle4"></div>
+    <div class="container">
     <div class="registration form">
       <header>Signup</header>
       <form class="form">
@@ -21,6 +26,7 @@
         </span>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -109,11 +115,13 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+.main{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   max-width: 430px;
   width: 100%;
   background: #fff;
@@ -121,7 +129,7 @@ export default {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 .container .form {
-  padding: 2rem;
+  padding: 1rem 2rem;
 }
 .form header {
   font-size: 2rem;
@@ -133,8 +141,8 @@ button {
   height: 40px;
   width: 100%;
   padding: 0 15px;
+  margin: 8px;
   font-size: 14px;
-  margin-bottom: 1rem;
   border: 1px solid #ddd;
   border-radius: 6px;
   outline: none;
@@ -180,5 +188,45 @@ button {
 }
 .signup label:hover {
   text-decoration: underline;
+}
+
+#circle1{
+  position: absolute;
+  z-index: -100;
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  background-color: #163020;
+  left: 80%;
+}
+
+#circle2{
+  position: absolute;
+  z-index: -200;
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  background-color: #304D30;
+  left: 60%;
+}
+
+#circle3{
+  position: absolute;
+  z-index: -300;
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  background-color: #B6C4B6;
+  left: 40%;
+}
+
+#circle4{
+  position: absolute;
+  z-index: -400;
+  height: 2000px;
+  width: 2000px;
+  border-radius: 50%;
+  background-color: #EEF0E5;
+  left: 20%;
 }
 </style>
