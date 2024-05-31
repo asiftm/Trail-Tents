@@ -31,13 +31,27 @@ namespace TrailTents.Database
         }
         internal int NotSelectQuery(string query)
         {
-            Console.WriteLine(query);
-
             try
             {
                 OpenConnection();
                 command = new MySqlCommand(query, connection);
                 return command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return -1;
+            }
+        }
+        internal int NotSelectQueryWithLink(string query,string link)
+        {
+            try
+            {
+                OpenConnection();
+                command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@DisplayImage", link);
+                return command.ExecuteNonQuery();
+                  
             }
             catch (Exception ex)
             {

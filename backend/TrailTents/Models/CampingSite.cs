@@ -15,6 +15,7 @@ namespace TrailTents.Models
         public string Description { get; set; }
         public int PricePerDay { get; set; }
         public float Rating { get; set; }
+        public string DisplayImage { get; set; }
 
         public List<CampingSite> GetAllCampingSites()
         {
@@ -48,13 +49,14 @@ namespace TrailTents.Models
             campingSite.Description = reader.GetString(3);
             campingSite.PricePerDay = reader.GetInt32(4);
             campingSite.Rating = reader.GetFloat(5);
+            campingSite.DisplayImage = reader.GetString(6);
             return campingSite;
         }
         public bool AddCampingSite(CampingSite campingSite)
         {
             if (!campingSite.CheckAllFields(campingSite)) return false;
-            string query = $"INSERT INTO `campsite` (`ID`, `Name`, `Location`, `Description`, `Price_per_Day`, `Rating`) VALUES (NULL, \"{campingSite.Name}\",  \"{campingSite.Location}\",  \"{campingSite.Description}\", '{campingSite.PricePerDay}', '0');";
-            if (data.NotSelectQuery(query) == 1)
+            string query = $"INSERT INTO `campsite` (`ID`, `Name`, `Location`, `Description`, `Price_per_Day`, `Rating`, `DisplayImage`) VALUES (NULL, \"{campingSite.Name}\",  \"{campingSite.Location}\",  \"{campingSite.Description}\", '{campingSite.PricePerDay}', '0', @DisplayImage);";
+            if (data.NotSelectQueryWithLink(query,campingSite.DisplayImage) == 1)
             {
                 return true;
             }
@@ -63,7 +65,7 @@ namespace TrailTents.Models
 
         public bool CheckAllFields(CampingSite campingSite)
         {
-            if (campingSite.Name != null && campingSite.Location != null && campingSite.Description != null && campingSite.PricePerDay != null) return true;
+            if (campingSite.Name != null && campingSite.Location != null && campingSite.Description != null && campingSite.PricePerDay != null && campingSite.DisplayImage != null) return true;
             return false;
         }
         public bool UpdateRating(int campsiteID)
@@ -81,7 +83,7 @@ namespace TrailTents.Models
         {
             if (!campingSite.CheckAllFields(campingSite)) return false;
             Review review = new Review();
-            string query = $"UPDATE `campsite` SET `Name` = \"{campingSite.Name}\", `Location` = \"{campingSite.Location}\", `Description` = \"{campingSite.Description}\", `Price_per_Day` = '{campingSite.PricePerDay}', `Rating` = '{review.GetAvgRatingByID(campingSite.ID)}' WHERE `campsite`.`ID` = {id};";
+            string query = $"UPDATE `campsite` SET `Name` = \"{campingSite.Name}\", `Location` = \"{campingSite.Location}\", `Description` = \"{campingSite.Description}\", `Price_per_Day` = '{campingSite.PricePerDay}', `Rating` = '{review.GetAvgRatingByID(campingSite.ID)}', `DisplayImage` = '{campingSite.DisplayImage}' WHERE `campsite`.`ID` = {id};";
             if (data.NotSelectQuery(query) == 1)
             {
                 return true;

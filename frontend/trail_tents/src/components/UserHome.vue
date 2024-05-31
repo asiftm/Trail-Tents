@@ -1,16 +1,5 @@
 <template>
   <div>
-    <div v-bind:class="{ 'sidebar': true, 'sidebar-open': isSidebarOpen }">
-      <!-- <button v-on:click="ToggleSidebar()" class="close-btn">Close</button> -->
-      <p id="username">{{username}}</p>
-      <ul class="menu-options">
-        <li v-on:click="UserProfile()">Edit Profile</li>
-        <li v-on:click="UserBookings()">My Bookings</li>
-        <li v-on:click="UserReviews()">My Reviews</li>
-      </ul>
-      <button v-on:click="Logout()" id="logout-btn">Log Out</button>
-    </div>
-    <div class="overlay" v-if="isSidebarOpen" v-on:click="ToggleSidebar()"></div>
     <div class="header">
       <div class="left">
         <div class="logo">
@@ -20,88 +9,62 @@
           <p>Trail Tents</p>
         </div>
       </div>
+      <div class="middle">
+        <button v-on:click="UserBookings()">My Bookings</button>
+        <button v-on:click="UserReviews()">My Reviews</button>
+        <button v-on:click="UserProfile()">Edit Profile</button>
+      </div>
       <div class="right">
-        <button v-on:click="ToggleSidebar()">Menu</button>
+        <button v-on:click="Logout()">Log Out</button>
       </div>
     </div>
     <div class="section">
       <div id="campsite-area">
-        <div class="campsite-container">
-          <div class="site-photo">
-
+        <div class="campsite-container" v-for="(item, index) in dataList" :key="index">
+          <div class="campsite-img">
+            <img :src="item.displayImage" alt="Display Image">
           </div>
-          <div class="book-container">
-            <button class="book-btn">Book</button>
-          </div>
-        </div>
-        <div class="campsite-container">
-          <div class="site-photo">
-
-          </div>
-          <div class="book-container">
-            <button class="book-btn">Book</button>
-          </div>
-        </div>
-        <div class="campsite-container">
-          <div class="site-photo">
-
-          </div>
-          <div class="book-container">
-            <button class="book-btn">Book</button>
-          </div>
-        </div>
-        <div class="campsite-container">
-          <div class="site-photo">
-
-          </div>
-          <div class="book-container">
-            <button class="book-btn">Book</button>
-          </div>
-        </div>
-        <div class="campsite-container">
-          <div class="site-photo">
-
-          </div>
-          <div class="book-container">
-            <button class="book-btn">Book</button>
-          </div>
-        </div>
-        <div class="campsite-container">
-          <div class="site-photo">
-              
-          </div>
-          <div class="book-container">
-            <button class="book-btn">Book</button>
+          <div class="campsite-name">
+            {{ item.name }}
           </div>
         </div>
       </div>
       <div id="more-btn-area">
-        <button id="more-btn">
-            See More
-          </button>
+        <button id="more-btn">See More</button>
       </div>
       <div id="search-area">
         <div id="search-box-container">
-          <input id="search-box" type="text" placeholder="Campsite name">
+          <input id="search-box" type="text" placeholder="Campsite name" />
         </div>
         <div id="search-btn-container">
-          <button id="search-btn">
-            Search
-          </button>
+          <button id="search-btn" v-on:click = "Search()">Search</button>
         </div>
       </div>
       <div id="filter-area">
         <div class="picker">
           <p class="picker-heading">Check-in date</p>
-          <input type="date" name="booking-start-date" class="datepicker" id="datepicker-start">
+          <input type="date" name="booking-start-date" class="filter" id="datepicker-start" />
         </div>
         <div class="picker">
           <p class="picker-heading">Check-out date</p>
-          <input type="date" name="booking-end-date" class="datepicker" id="datepicker-end">
+          <input type="date" name="booking-end-date" class="filter" id="datepicker-end" />
         </div>
         <div class="picker">
           <p class="picker-heading">Price</p>
-          <input type="date" name="booking-end-date" class="datepicker" id="datepicker-end">
+          <div id="priceranges">
+            <input v-model="priceFrom" type="number" placeholder="From" name="pricerange" class="filter" id="pricerange">
+            <input v-model="priceTo" type="number" placeholder="To" name="pricerange" class="filter" id="pricerange">
+          </div>
+        </div>
+        <div class="picker">
+          <p class="picker-heading">Location</p>
+          <input list="options" placeholder="Select location" name="location" class="filter" id="location" />
+          <datalist id="options">
+            <option value="Option 1"></option>
+            <option value="Option 2"></option>
+            <option value="Option 3"></option>
+            <option value="Option 4"></option>
+          </datalist>
         </div>
       </div>
     </div>
@@ -109,50 +72,82 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "UserHome",
-  data(){
-    return{
+  data() {
+    return {
       username: "",
       isSidebarOpen: false,
-    }
+      dataList: [],
+      priceFrom:null,
+      priceTo:null,
+    };
   },
-  methods:{
+  methods: {
     ToggleSidebar() {
-      if(this.isSidebarOpen){
+      if (this.isSidebarOpen) {
         this.isSidebarOpen = false;
-      }
-      else{
+      } else {
         this.isSidebarOpen = true;
       }
     },
-    Logout(){
+    async GetCampsites() {
+      try {
+        let result = await axios.get(`https://localhost:5272/CampingSite`);
+        if (result.status == 200 && result.data != null) {
+          console.log(result)
+          for (let i = 0; i < 5 && i < result.data.length; i++) {
+            let dataDict = {
+              name: result.data[i].name,
+              displayImage: result.data[i].displayImage
+            }
+            this.dataList.push(dataDict);
+          }
+          console.log(this.dataList)
+        }
+      } catch (error) {
+        this.items = [
+          "Item 1",
+          "Item 2",
+          "Item 3",
+          "Item 4",
+          "Item 5",
+          "Item 6",
+        ];
+      }
+    },
+    Logout() {
       localStorage.clear();
-      this.$router.push({name:"UserLogin"});
+      this.$router.push({ name: "UserLogin" });
     },
-    UserProfile(){
-      this.$router.push({name:"UserProfile"})
+    UserProfile() {
+      this.$router.push({ name: "UserProfile" });
     },
-    UserBookings(){
-      this.$router.push({name:"UserBookings"})
+    UserBookings() {
+      this.$router.push({ name: "UserBookings" });
     },
-    UserReviews(){
-      this.$router.push({name:"UserReviews"})
+    UserReviews() {
+      this.$router.push({ name: "UserReviews" });
+    },
+    Search(){
+      console.log(this.priceFrom)
+      console.log(this.priceTo)
     }
   },
-  mounted(){
+  mounted() {
     let userInfo = localStorage.getItem("userInfo");
     if (!userInfo) {
-      this.$router.push({ name: "UserLogin"});
-    }
-    else{
+      this.$router.push({ name: "UserLogin" });
+    } else {
       const user = JSON.parse(userInfo);
       this.username = `${user.firstname} ${user.lastname}`;
+      this.GetCampsites();
     }
-  }
+  },
 };
 </script>
-
 
 <style scoped>
 * {
@@ -163,6 +158,7 @@ export default {
   font-weight: 600;
   font-size: 16px;
 }
+
 .header {
   height: 80px;
   display: flex;
@@ -173,7 +169,7 @@ export default {
   border-radius: 10px;
 }
 
-.left{
+.left {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -189,103 +185,37 @@ export default {
   font-family: "Stick", sans-serif;
 }
 
-.right{
+.right,
+.middle {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: end;
+  align-items: center;
   margin-right: 20px;
 }
 
-.right button{
-  padding: 5px 8px;
-  margin: 0 3px;
+.right button,
+.middle button {
+  padding: 5px 15px;
+  margin: 0 6px;
   border: none;
   border-radius: 20px;
-  background-color: #F3CA52;
   transition: 0.3s;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-.right button, .close-btn, .menu-options li:hover {
-  transform: scale(1.05);
+#logout-btn:hover,
+#search-btn:hover,
+.right button:hover,
+.middle button:hover,
+.book-btn:hover,
+#more-btn:hover,
+.campsite-container:hover{
   cursor: pointer;
-}
-
-.menu-overlay{
-  z-index: 100;
-  position: absolute;
-  justify-content: end;
-  width: 20%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.77);
-}
-
-.sidebar {
-  position: fixed;
-  top: 10px;
-  bottom: 10px;
-  right: -400px;
-  width: 300px;
-  background-color: #F3CA52;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-  transition: right 0.5s;
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.sidebar-open {
-  right: 0;
-}
-
-#username{
-  align-self: flex-end;
-}
-
-.menu-options {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0 0 0;
-}
-
-.menu-options li {
-  margin: 10px 0;
-  padding: 10px;
-  background-color: #F6E9B2;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#logout-btn{
-  margin-top: auto;
-  border-radius: 5px;
-  border: none;
-  padding: 10px;
-  transition: 0.3s;
-  background-color: #0A6847;
-  color: #fff;
-}
-#logout-btn:hover{
-  cursor: pointer;
-  background-color: #006653;
   transform: scale(1.05);
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 250;
-}
-
-#campsite-area{
+#campsite-area {
   margin-top: 30px;
   padding: 10px 30px;
   height: 240px;
@@ -295,34 +225,50 @@ export default {
   justify-content: space-between;
 }
 
-.campsite-container{
-  height: 220px;
-  width: 220px;
-  background-color: greenyellow;
+.campsite-container {
+  margin: 0;
+  padding: 0;
+  height: 250px;
+  width: 250px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  transition: 0.4s;
+}
+
+.campsite-name {
+  height: 35px;
+  padding: 0;
+  margin: 0;
+}
+
+.campsite-img {
+  height: 200px;
+  width: 220px;
   position: relative;
 }
 
-.book-container{
+.campsite-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   position: absolute;
-  top: 210px;
-  left: 190px;
-}
-
-.book-btn{
-  background-color: #F3CA52;
-  border: none;
-  border-radius: 50px;
-  padding: 2px 5px;
+  top: 0;
+  left: 0;
+  border-radius: 4%;
 }
 
 #more-btn-area {
-  margin-top: 30px;
+  margin-top: 60px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
 #search-area {
@@ -331,10 +277,10 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
-#search-box-container{
+#search-box-container {
   margin-right: 10px;
 }
 
@@ -344,28 +290,22 @@ export default {
   max-width: 400px;
   border-radius: 20px;
   border: none;
-  background-color: #F3CA52;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   outline: none;
   padding: 0px 12px;
 }
 
-#search-btn,#more-btn {
+#search-btn,
+#more-btn {
   height: 46px;
   width: 100%;
   max-width: 200px;
   border-radius: 20px;
   border: none;
-  background-color:#F3CA52;
   padding: 0px 10px 5px 10px;
-  font-size:25px;
+  font-size: 25px;
   transition: 0.2s;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-}
-
-#search-btn:hover{
-  transform: scale(1.1);
-  cursor: pointer;
 }
 
 #filter-area {
@@ -380,23 +320,22 @@ export default {
 
 .picker {
   height: auto;
-  width: 180px;
+  width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.picker-heading{
+.picker-heading {
   font-size: 24px;
   padding-bottom: 10px;
   margin: 0;
 }
 
-.datepicker {
+.filter {
   width: 100%;
   max-width: 170px;
-  background-color: #F3CA52;
   border: none;
   border-radius: 3px;
   padding: 5px 15px;
@@ -404,13 +343,16 @@ export default {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  background-color: #F3CA52;
-}
-
 input[type="date"]::-webkit-calendar-picker-indicator:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
 
+#priceranges{
+  display: flex;
+  flex-direction: row;
+}
+#priceranges .filter{
+  margin: 5px;
+}
 </style>
