@@ -1,10 +1,13 @@
 <template>
   <div>
+    <UserHeader />
     <h1>hello</h1>
   </div>
 </template>
 
 <script>
+//import axios from "axios";
+import UserHeader from "./UserHeader.vue";
 export default{
   name: "UserProfile",
   data(){
@@ -18,6 +21,9 @@ export default{
       password: "",
       confirmPassword: ""
     }
+  },
+  components:{
+    UserHeader,
   },
   mounted(){
     let userInfo = localStorage.getItem("userInfo");

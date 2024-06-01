@@ -1,23 +1,6 @@
 <template>
   <div>
-    <div class="header">
-      <div class="left">
-        <div class="logo">
-          <img src="../assets/logo.png" alt="" />
-        </div>
-        <div class="name">
-          <p>Trail Tents</p>
-        </div>
-      </div>
-      <div class="middle">
-        <button v-on:click="UserBookings()">My Bookings</button>
-        <button v-on:click="UserReviews()">My Reviews</button>
-        <button v-on:click="UserProfile()">Edit Profile</button>
-      </div>
-      <div class="right">
-        <button v-on:click="Logout()">Log Out</button>
-      </div>
-    </div>
+    <UserHeader />
     <div class="section">
       <div id="campsite-area">
         <div class="campsite-container" v-for="(item, index) in dataList" :key="index">
@@ -73,26 +56,22 @@
 
 <script>
 import axios from "axios";
+import UserHeader from "./UserHeader.vue";
 
 export default {
   name: "UserHome",
+  components:{
+    UserHeader,
+  },
   data() {
     return {
       username: "",
-      isSidebarOpen: false,
       dataList: [],
       priceFrom:null,
       priceTo:null,
     };
   },
   methods: {
-    ToggleSidebar() {
-      if (this.isSidebarOpen) {
-        this.isSidebarOpen = false;
-      } else {
-        this.isSidebarOpen = true;
-      }
-    },
     async GetCampsites() {
       try {
         let result = await axios.get(`https://localhost:5272/CampingSite`);
@@ -108,28 +87,8 @@ export default {
           console.log(this.dataList)
         }
       } catch (error) {
-        this.items = [
-          "Item 1",
-          "Item 2",
-          "Item 3",
-          "Item 4",
-          "Item 5",
-          "Item 6",
-        ];
+        console.log(error)
       }
-    },
-    Logout() {
-      localStorage.clear();
-      this.$router.push({ name: "UserLogin" });
-    },
-    UserProfile() {
-      this.$router.push({ name: "UserProfile" });
-    },
-    UserBookings() {
-      this.$router.push({ name: "UserBookings" });
-    },
-    UserReviews() {
-      this.$router.push({ name: "UserReviews" });
     },
     Search(){
       console.log(this.priceFrom)
@@ -159,55 +118,7 @@ export default {
   font-size: 16px;
 }
 
-.header {
-  height: 80px;
-  display: flex;
-  justify-content: space-between;
-  z-index: 100;
-  color: #313638;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-}
-
-.left {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 20px;
-}
-
-.logo img {
-  height: 60px;
-}
-
-.left p {
-  margin: 7px 0 10px 5px;
-  font-family: "Stick", sans-serif;
-}
-
-.right,
-.middle {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.right button,
-.middle button {
-  padding: 5px 15px;
-  margin: 0 6px;
-  border: none;
-  border-radius: 20px;
-  transition: 0.3s;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-}
-
-#logout-btn:hover,
 #search-btn:hover,
-.right button:hover,
-.middle button:hover,
 .book-btn:hover,
 #more-btn:hover,
 .campsite-container:hover{

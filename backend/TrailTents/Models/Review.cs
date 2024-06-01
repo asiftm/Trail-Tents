@@ -75,6 +75,8 @@ namespace TrailTents.Models
             MySqlDataReader reader = data.SelectQuery(query);
             while (reader.Read())
             {
+
+
                 Review review = new Review();
                 FillReview(reader, review);
                 reviews.Add(review);
