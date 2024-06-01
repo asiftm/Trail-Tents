@@ -108,12 +108,11 @@ export default {
 
 <style scoped>
 /* Import Google font - Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Ysabeau Infant", sans-serif;
 }
 .main{
   min-height: 100vh;

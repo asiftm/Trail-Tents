@@ -12,7 +12,7 @@
       <button v-on:click="UserHome()">Home</button>
       <button v-on:click="UserBookings()">My Bookings</button>
       <button v-on:click="UserReviews()">My Reviews</button>
-      <button v-on:click="UserProfile()">Edit Profile</button>
+      <button v-on:click="UserProfile()">My Profile</button>
     </div>
     <div class="right">
       <button v-on:click="Logout()">Log Out</button>
@@ -102,8 +102,8 @@ export default {
 button {
   font-size: 18px;
   font-weight: 600;
-  padding: 5px 15px;
-  margin: 0 6px;
+  padding: 5px 10px;
+  margin: 0 10px;
   border: none;
   border-radius: 20px;
   transition: 0.3s;

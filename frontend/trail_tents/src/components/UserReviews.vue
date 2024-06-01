@@ -6,7 +6,6 @@
 </template>
 
 <script>
-//import axios from "axios";
 import UserHeader from "./UserHeader.vue";
 import USerReview from "./UserReview.vue"
 
