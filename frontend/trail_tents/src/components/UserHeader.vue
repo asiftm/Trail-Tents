@@ -5,24 +5,28 @@
         <img src="../assets/logo.png" alt="" />
       </div>
       <div class="name">
-        <button v-on:click="UserHome()">Trail Tents</button>
+        <ButtonWhite v-on:click="UserHome()" text="Trail Tents" />
       </div>
     </div>
     <div class="middle">
-      <button v-on:click="UserHome()">Home</button>
-      <button v-on:click="UserBookings()">My Bookings</button>
-      <button v-on:click="UserReviews()">My Reviews</button>
-      <button v-on:click="UserProfile()">My Profile</button>
+      <ButtonWhite v-on:click="UserHome()" text="Home" />
+      <ButtonWhite v-on:click="UserBookings()" text="My Bookings" />
+      <ButtonWhite v-on:click="UserReviews()" text="My Reviews" />
+      <ButtonWhite v-on:click="UserProfile()" text="My Profile" />
     </div>
     <div class="right">
-      <button v-on:click="Logout()">Log Out</button>
+      <ButtonWhite v-on:click="Logout()" text="Log Out" />
     </div>
   </div>
 </template>
 
 <script>
+import ButtonWhite from "./ButtonWhite.vue"
 export default {
   name: "USerHeader",
+  components: {
+    ButtonWhite,
+  },
   methods: {
     Logout() {
       localStorage.clear();
@@ -68,7 +72,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .header {
   height: 80px;
   display: flex;
@@ -99,18 +103,6 @@ export default {
   margin-right: 20px;
 }
 
-button {
-  font-size: 18px;
-  font-weight: 600;
-  padding: 5px 10px;
-  margin: 0 10px;
-  border: none;
-  border-radius: 20px;
-  transition: 0.3s;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  font-family: "Ysabeau Infant", sans-serif;
-}
-
 .left button {
   margin: 7px 0 10px 5px;
   font-family: "Stick", sans-serif;
@@ -118,10 +110,5 @@ button {
   border: none;
   box-shadow: none;
   background-color: transparent;
-}
-
-button:hover {
-  cursor: pointer;
-  transform: scale(1.05);
 }
 </style>

@@ -58,7 +58,7 @@ namespace TrailTents.Models
         }
         public bool AddUser(User user)
         {
-            if (!user.CheckAllFields(user)) return false;
+            if (!user.CheckAllFields(user) || !user.UniqueEmail(user.Email)) return false;
             string query = $"INSERT INTO `user` (`ID`, `Firstname`, `Lastname`, `Date_of_Birth`, `Email`, `Address`, `Contact_Number`, `Password`, `Profile_Picture`) VALUES (NULL, '{user.Firstname}', '{user.Lastname}', '{user.DateOfBirth}', '{user.Email}', '{user.Address}', '{user.ContactNumber}', '{user.Password}', '{user.ProfilePicture}');";
             if (data.NotSelectQuery(query) == 1)
             {
@@ -73,7 +73,7 @@ namespace TrailTents.Models
         }
         public bool UpdateUser(User user,int id)
         {
-            if (!user.CheckAllFields(user)) return false;
+            if (!user.CheckAllFields(user) || !user.UniqueEmailForUpdate(user,id)) return false;
             string query = $"UPDATE `user` SET `Firstname` = '{user.Firstname}', `Lastname` = '{user.Lastname}', `Date_of_Birth` = '{user.DateOfBirth}', `Email` = '{user.Email}', `Address` ='{user.Address}', `Contact_Number` = '{user.ContactNumber}', `Password` = '{user.Password}', `Profile_Picture` = '{user.ProfilePicture}' WHERE `user`.`ID` = {id};";
             if (data.NotSelectQuery(query) == 1)
             {
@@ -97,6 +97,16 @@ namespace TrailTents.Models
         public bool UniqueEmail(string email)
         {
             string query = $"SELECT * FROM `user` WHERE Email = '{email}';";
+            MySqlDataReader reader = data.SelectQuery(query);
+            if (!reader.HasRows)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool UniqueEmailForUpdate(User user, int id)
+        {
+            string query = $"SELECT * FROM `user` WHERE Email = '{user.Email}' and ID != {id};";
             MySqlDataReader reader = data.SelectQuery(query);
             if (!reader.HasRows)
             {

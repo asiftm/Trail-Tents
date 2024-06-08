@@ -1,19 +1,16 @@
 <template>
   <div>
     <UserHeader />
-    <USerReview />
+    <h1>Bookings</h1>
   </div>
 </template>
-
 <script>
-import UserHeader from "./UserHeader.vue";
-import USerReview from "./UserReview.vue"
-
+//import axios from "axios";
+import UserHeader from "../components/UserHeader.vue";
 export default{
-  name:"UserReviews",
+  name:"UserBookings",
   components:{
     UserHeader,
-    USerReview
   },
   mounted() {
     let userInfo = localStorage.getItem("userInfo");

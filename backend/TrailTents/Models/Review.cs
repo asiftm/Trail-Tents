@@ -13,11 +13,12 @@ namespace TrailTents.Models
         public int UserID { get; set; }
         public int Rating { get; set; }
         public string Comment { get; set; }
+        public string Username { get; set; }
 
         public List<Review> GetAllReviews()
         {
             List<Review> reviews = new List<Review>();
-            string query = "Select * From `review`";
+            string query = "SELECT review.ID, review.Campsite_ID, review.User_ID, review.Rating, review.Comment, CONCAT(user.Firstname, ' ', user.Lastname) AS Username FROM review JOIN user ON review.User_ID = user.ID;";
             MySqlDataReader reader = data.SelectQuery(query);
             while (reader.Read())
             {
@@ -32,7 +33,7 @@ namespace TrailTents.Models
         public Review GetReviewByID(int id)
         {
             Review review = new Review();
-            string query = $"Select * From `review` Where ID = '{id}'";
+            string query = $"SELECT review.ID, review.Campsite_ID, review.User_ID, review.Rating, review.Comment, CONCAT(user.Firstname, ' ', user.Lastname) AS Username FROM review JOIN user ON review.User_ID = user.ID Where review.ID = '{id}'";
             MySqlDataReader reader = data.SelectQuery(query);
             while (reader.Read())
             {
@@ -60,6 +61,7 @@ namespace TrailTents.Models
             review.UserID = reader.GetInt32(2);
             review.Rating = reader.GetInt32(3); ;
             review.Comment = reader.GetString(4);
+            review.Username = reader.GetString(5);
             return review;
         }
         public bool CheckAllFields(Review review)
@@ -71,12 +73,11 @@ namespace TrailTents.Models
         public List<Review> GetReviewsByUserID(int id)
         {
             List<Review> reviews = new List<Review>();
-            string query = $"SELECT * FROM `review` WHERE `User_ID` = {id};";
+            //string query = $"SELECT * FROM `review` WHERE `User_ID` = {id};";
+            string query = $"SELECT review.ID, review.Campsite_ID, review.User_ID, review.Rating, review.Comment, CONCAT(user.Firstname, ' ', user.Lastname) AS Username FROM review JOIN user ON review.User_ID = user.ID WHERE review.`User_ID` = {id};";
             MySqlDataReader reader = data.SelectQuery(query);
             while (reader.Read())
             {
-
-
                 Review review = new Review();
                 FillReview(reader, review);
                 reviews.Add(review);
@@ -87,7 +88,7 @@ namespace TrailTents.Models
         public List<Review> GetReviewsByCampingSiteID(int id)
         {
             List<Review> reviews = new List<Review>();
-            string query = $"SELECT * FROM `review` WHERE `Campsite_ID` = {id};";
+            string query = $"SELECT review.ID, review.Campsite_ID, review.User_ID, review.Rating, review.Comment, CONCAT(user.Firstname, ' ', user.Lastname) AS Username FROM review JOIN user ON review.User_ID = user.ID WHERE review.Campsite_ID = {id};";
             MySqlDataReader reader = data.SelectQuery(query);
             while (reader.Read())
             {

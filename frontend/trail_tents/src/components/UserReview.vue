@@ -6,14 +6,17 @@
     <div class="review-container">
       <div class="review" v-for="(item, index) in reviewList" :key="index">
         <div class="review-item" id="campsiteName">
-          <button>{{ item.campsiteName }}</button>
+          <button v-on:click = "OpenCampsite(item.campsiteID)">{{ item.campsiteName }}</button>
         </div>
         <div class="review-item" id="comment">
           {{ item.comment }}
         </div>
         <div class="review-item" id="rating">
+          <div class="rating-star-container" v-for="(i, index) in 5-item.rating" :key="index">
+            <img src="../assets/review_star_white.png" alt="">
+          </div>
           <div class="rating-star-container" v-for="(i, index) in item.rating" :key="index">
-            <img src="../assets/1149472-removebg-preview.png" alt="">
+            <img src="../assets/review_star_yellow.png" alt="">
           </div>
         </div>
       </div>
@@ -63,6 +66,9 @@ export default {
         console.log(error)
       }
     },
+    OpenCampsite(campsiteID) {
+      this.$router.push({ name: 'CampsiteView', params: { id: campsiteID } });
+    }
   },
   mounted() {
     let userInfo = localStorage.getItem("userInfo");
@@ -77,7 +83,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .main {
   font-family: "Ysabeau Infant", sans-serif;
   display: flex;
@@ -92,13 +98,17 @@ export default {
 }
 
 .main button{
+  font-family: "Ysabeau Infant", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
   background: none;
   padding-bottom: 5px;
   box-shadow: none;
+  border: none;
 }
 
-.review-container {
-
+.main button:hover{
+  cursor: pointer;
 }
 
 .review {
@@ -130,10 +140,10 @@ export default {
 }
 
 .rating-star-container img {
-  object-fit: cover;
-  height: 30px;
-  width: 30px;
-  padding: 0px 5px;
+  height: 20px;
+  width: 20px;
+  padding: 0px;
+  margin:2px;
 }
 
 #campsiteName {

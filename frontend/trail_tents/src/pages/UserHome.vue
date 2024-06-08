@@ -3,7 +3,7 @@
     <UserHeader />
     <div class="section">
       <div id="campsite-area">
-        <div class="campsite-container" v-for="(item, index) in dataList" :key="index">
+        <div class="campsite-container" v-for="(item, index) in dataList" :key="index" v-on:click="OpenCampsite(item.id)">
           <div class="campsite-img">
             <img :src="item.displayImage" alt="Display Image">
           </div>
@@ -13,14 +13,14 @@
         </div>
       </div>
       <div id="more-btn-area">
-        <button id="more-btn">See More</button>
+        <ButtonWhite v-on:click="Search()" text="See More" />
       </div>
       <div id="search-area">
         <div id="search-box-container">
           <input id="search-box" type="text" placeholder="Campsite name" />
         </div>
         <div id="search-btn-container">
-          <button id="search-btn" v-on:click = "Search()">Search</button>
+          <ButtonWhite v-on:click="Search()" text="Search" />
         </div>
       </div>
       <div id="filter-area">
@@ -35,7 +35,8 @@
         <div class="picker">
           <p class="picker-heading">Price</p>
           <div id="priceranges">
-            <input v-model="priceFrom" type="number" placeholder="From" name="pricerange" class="filter" id="pricerange">
+            <input v-model="priceFrom" type="number" placeholder="From" name="pricerange" class="filter"
+              id="pricerange">
             <input v-model="priceTo" type="number" placeholder="To" name="pricerange" class="filter" id="pricerange">
           </div>
         </div>
@@ -56,19 +57,21 @@
 
 <script>
 import axios from "axios";
-import UserHeader from "./UserHeader.vue";
+import UserHeader from "../components/UserHeader.vue";
+import ButtonWhite from "../components/ButtonWhite.vue"; 
 
 export default {
   name: "UserHome",
-  components:{
+  components: {
     UserHeader,
+    ButtonWhite,
   },
   data() {
     return {
       username: "",
       dataList: [],
-      priceFrom:null,
-      priceTo:null,
+      priceFrom: null,
+      priceTo: null,
     };
   },
   methods: {
@@ -76,21 +79,24 @@ export default {
       try {
         let result = await axios.get(`https://localhost:5272/CampingSite`);
         if (result.status == 200 && result.data != null) {
-          console.log(result)
           for (let i = 0; i < 5 && i < result.data.length; i++) {
             let dataDict = {
+              id: result.data[i].id,
               name: result.data[i].name,
               displayImage: result.data[i].displayImage
             }
             this.dataList.push(dataDict);
           }
-          console.log(this.dataList)
         }
       } catch (error) {
         console.log(error)
       }
     },
-    Search(){
+    OpenCampsite(campsiteID) {
+      this.$router.push({ name: 'CampsiteView', params: { id: campsiteID } });
+    }
+    ,
+    Search() {
       console.log(this.priceFrom)
       console.log(this.priceTo)
     }
@@ -115,14 +121,6 @@ export default {
   font-family: "Ysabeau Infant", sans-serif;
   font-weight: 600;
   font-size: 16px;
-}
-
-#search-btn:hover,
-.book-btn:hover,
-#more-btn:hover,
-.campsite-container:hover{
-  cursor: pointer;
-  transform: scale(1.05);
 }
 
 #campsite-area {
@@ -205,17 +203,11 @@ export default {
   padding: 0px 12px;
 }
 
-#search-btn,
-#more-btn {
+.section button {
   height: 46px;
   width: 100%;
   max-width: 200px;
-  border-radius: 20px;
-  border: none;
-  padding: 0px 10px 5px 10px;
   font-size: 25px;
-  transition: 0.2s;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 #filter-area {
@@ -258,11 +250,12 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   transform: scale(1.1);
 }
 
-#priceranges{
+#priceranges {
   display: flex;
   flex-direction: row;
 }
-#priceranges .filter{
+
+#priceranges .filter {
   margin: 5px;
 }
 </style>

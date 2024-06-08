@@ -1,9 +1,5 @@
 <template>
   <div class="main">
-    <div id="circle1"></div>
-    <div id="circle2"></div>
-    <div id="circle3"></div>
-    <div id="circle4"></div>
     <div class="heading" id="welcome-txt">
       Welcome to
       <p id="main-title">Trail Tents</p>
@@ -60,7 +56,6 @@ export default {
         );
 
         if (result.status == 200 && result.data != null) {
-          console.log(result);
           localStorage.setItem("userInfo", JSON.stringify(result.data));
           this.$router.push({ name: "UserHome" });
         } else {
