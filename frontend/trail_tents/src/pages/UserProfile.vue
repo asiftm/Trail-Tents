@@ -152,7 +152,7 @@ export default {
         this.user.id = temp.id;
         this.user.firstname = temp.firstname;
         this.user.lastname = temp.lastname;
-        this.user.dateOfBirth = new Date(temp.dateOfBirth).toISOString().split('T')[0];
+        this.user.dateOfBirth = this.formatDate(temp.dateOfBirth);
         this.user.email = temp.email;
         this.user.address = temp.address;
         this.user.contactNumber = temp.contactNumber;
@@ -161,7 +161,13 @@ export default {
         this.user.confirmPassword = "";
         this.fullname = this.user.firstname + " " + this.user.lastname
       }
-    }
+    },
+    formatDate(dateStr) {
+      // Expected format: dd/mm/yyyy
+      const [day, month, year] = dateStr.split('/');
+      const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      return formattedDate;
+    },
   },
   mounted() {
     this.Reset();

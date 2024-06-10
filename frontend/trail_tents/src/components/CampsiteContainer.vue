@@ -123,7 +123,7 @@ export default {
 }
 
 #left-container {
-  width: 40%;
+  width: 590px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -145,7 +145,7 @@ export default {
 }
 
 #right-container {
-  width: 60%;
+  width: 890px;
   margin-right: 30px;
 }
 

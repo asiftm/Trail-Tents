@@ -5,6 +5,7 @@ import UserProifle from "./pages/UserProfile.vue";
 import UserBookings from "./pages/UserBookings.vue";
 import UserReviews from "./pages/UserReviews.vue";
 import CampsiteView from "./pages/CampsiteView.vue";
+import CampsiteList from "./pages/CampsiteList.vue"
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -43,6 +44,11 @@ const routes = [
     name: "CampsiteView",
     component: CampsiteView,
     path: "/campsite/:id",
+  },
+  {
+    name: "CampsiteList",
+    component: CampsiteList,
+    path: "/campsites",
   },
 ];
 

@@ -6,13 +6,13 @@
     <div class="review-container">
       <div class="review" v-for="(item, index) in reviewList" :key="index">
         <div class="review-item" id="campsiteName">
-          <button v-on:click = "OpenCampsite(item.campsiteID)">{{ item.campsiteName }}</button>
+          <button v-on:click="OpenCampsite(item.campsiteID)">{{ item.campsiteName }}</button>
         </div>
         <div class="review-item" id="comment">
           {{ item.comment }}
         </div>
         <div class="review-item" id="rating">
-          <div class="rating-star-container" v-for="(i, index) in 5-item.rating" :key="index">
+          <div class="rating-star-container" v-for="(i, index) in 5 - item.rating" :key="index">
             <img src="../assets/review_star_white.png" alt="">
           </div>
           <div class="rating-star-container" v-for="(i, index) in item.rating" :key="index">
@@ -49,7 +49,7 @@ export default {
               campsiteName: campsitedata.name
             }
             this.reviewList.push(dataDict);
-            console.log(typeof(dataDict.rating))
+            console.log(typeof (dataDict.rating))
           }
         }
       } catch (error) {
@@ -67,7 +67,12 @@ export default {
       }
     },
     OpenCampsite(campsiteID) {
-      this.$router.push({ name: 'CampsiteView', params: { id: campsiteID } });
+      let userInfo = localStorage.getItem("userInfo");
+      if (!userInfo) {
+        this.$router.push({ name: "UserLogin" });
+      } else {
+        this.$router.push({ name: 'CampsiteView', params: { id: campsiteID } });
+      }
     }
   },
   mounted() {
@@ -97,7 +102,7 @@ export default {
   font-weight: 600;
 }
 
-.main button{
+.main button {
   font-family: "Ysabeau Infant", sans-serif;
   font-size: 20px;
   font-weight: 600;
@@ -107,7 +112,7 @@ export default {
   border: none;
 }
 
-.main button:hover{
+.main button:hover {
   cursor: pointer;
 }
 
@@ -143,7 +148,7 @@ export default {
   height: 20px;
   width: 20px;
   padding: 0px;
-  margin:2px;
+  margin: 2px;
 }
 
 #campsiteName {

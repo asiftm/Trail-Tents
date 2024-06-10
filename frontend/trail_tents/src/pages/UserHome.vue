@@ -1,7 +1,7 @@
 <template>
   <div>
-    <UserHeader />
-    <div class="section">
+    <div>
+      <UserHeader />
       <div id="campsite-area">
         <div class="campsite-container" v-for="(item, index) in dataList" :key="index" v-on:click="OpenCampsite(item.id)">
           <div class="campsite-img">
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div id="more-btn-area">
-        <ButtonWhite v-on:click="Search()" text="See More" />
+        <ButtonWhite v-on:click = "CampsiteList()"  text="See More" />
       </div>
       <div id="search-area">
         <div id="search-box-container">
@@ -58,7 +58,7 @@
 <script>
 import axios from "axios";
 import UserHeader from "../components/UserHeader.vue";
-import ButtonWhite from "../components/ButtonWhite.vue"; 
+import ButtonWhite from "../components/ButtonWhite.vue";
 
 export default {
   name: "UserHome",
@@ -94,8 +94,16 @@ export default {
     },
     OpenCampsite(campsiteID) {
       this.$router.push({ name: 'CampsiteView', params: { id: campsiteID } });
-    }
-    ,
+    },
+    CampsiteList() {
+      let user = localStorage.getItem("userInfo");
+      if (user) {
+      this.$router.push({ name: "CampsiteList" });
+      }
+      else{
+        this.$router.push({ name: "UserLogin" });
+      }
+    },
     Search() {
       console.log(this.priceFrom)
       console.log(this.priceTo)
@@ -148,6 +156,10 @@ export default {
   transition: 0.4s;
 }
 
+.campsite-container:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
 .campsite-name {
   height: 35px;
   padding: 0;
@@ -176,7 +188,6 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  align-items: center;
 }
 
 #search-area {
@@ -258,4 +269,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 #priceranges .filter {
   margin: 5px;
 }
+
+
 </style>
