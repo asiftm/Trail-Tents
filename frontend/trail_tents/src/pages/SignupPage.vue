@@ -48,7 +48,7 @@ export default {
       password: "",
       confirmPassword: "",
       message: "",
-      isSuccessfull: true,
+      isSuccessfull: false,
     }
   },
   methods: {

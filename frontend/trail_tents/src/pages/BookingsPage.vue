@@ -5,7 +5,6 @@
   </div>
 </template>
 <script>
-//import axios from "axios";
 import UserHeader from "../components/UserHeader.vue";
 export default{
   name:"UserBookings",

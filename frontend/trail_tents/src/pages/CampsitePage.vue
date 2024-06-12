@@ -7,7 +7,7 @@
 
 <script>
 import UserHeader from "../components/UserHeader.vue";
-import CampsiteContainer from "../components/CampsiteContainer.vue";
+import CampsiteContainer from "../components/CampsiteDetails.vue";
 
 export default {
   name: "CampsiteView",

@@ -1,12 +1,21 @@
 <template>
-  <div class="campsite-card" v-on:click = "OpenCampsite(campsite.id)">
-    <p id="name">{{ campsite.name }}</p>
+  <div class="campsite-card">
     <div class="campsite-img">
       <img :src="campsite.displayImage" alt="Display Image">
-      <RatingStars :rating= "campsite.rating" />
     </div>
-    <p>{{campsite.pricePerDay}} euro/day</p>
+    <div class="campsite-name" v-on:click="OpenCampsite(campsite.id)">
+      {{ campsite.name }}
+    </div>
+    <div class="price-rating-container">
+      <div class="campsite-price">
+        {{ campsite.pricePerDay }}€
+      </div>
+      <div class="campsite-rating">
+        <RatingStars :rating="campsite.rating" />
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -20,7 +29,7 @@ export default {
       required: true
     }
   },
-  components:{
+  components: {
     RatingStars
   },
   methods: {
@@ -29,7 +38,7 @@ export default {
       if (!userInfo) {
         this.$router.push({ name: "UserLogin" });
       } else {
-        this.$router.push({ name: 'CampsiteView', params: { id: campsiteID } });
+        this.$router.push({ name: 'CampsitePage', params: { id: campsiteID } });
       }
     }
   }
@@ -42,39 +51,37 @@ export default {
   box-sizing: border-box;
   font-family: "Ysabeau Infant", sans-serif;
   font-weight: 600;
-  font-size: 16px;
 }
 
 .campsite-card {
-  height: 340px;
-  width: 300px;
-  margin: 20px;
-  border-radius: 5px;
-  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  margin: 7px 10px;
+  width: 220px;
+  height: 300px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  transition: 0.3s;
+  border-radius: 5%;
+  transition: 1s;
 }
 
-.campsite-card:hover{
+.campsite-card:hover {
   cursor: pointer;
-  transform: scale(1.05);
+  transform: scale(1.2);
+  z-index: 100;
+  background-color: rgb(255, 255, 255);
 }
 
-.campsite-card p{
-  margin: 10px 0px;
 
-}
-
-#name{  
+.campsite-name {
   font-size: 24px;
 }
 
 .campsite-img {
-  height: 285px;
-  width: 285px;
+  height: 200px;
+  width: 200px;
   position: relative;
 }
 
@@ -88,11 +95,21 @@ export default {
   border-radius: 4%;
 }
 
-#rating{
-  position: absolute;
-  top: -10px;
-  right: -1px;
-
+.price-rating-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0;
+  padding: 5px;
 }
 
+.campsite-price {
+  font-size: 15px;
+}
+
+.campsite-rating {
+  height: 10px;
+}
 </style>

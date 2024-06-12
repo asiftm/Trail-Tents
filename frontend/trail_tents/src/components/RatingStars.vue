@@ -26,12 +26,10 @@ export default {
 <style>
 #rating {
   background-color: #ffffff;
-  border: 2px solid rgb(0, 0, 0);
   border-radius: 5px;
   padding: 0;
   display: flex;
   flex-direction: row;
-  position: absolute;
   top: -15px;
   right: 0;
 }

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <UserHeader />
+  <div class="main">
     <div class="profile-container">
       <div class="left-right-container" id="left-container">
         <div class="left-container-item" id="profile-photo-container">
@@ -76,10 +75,9 @@
 
 <script>
 import axios from "axios";
-import UserHeader from "../components/UserHeader.vue";
 import ButtonWhite from "../components/ButtonWhite.vue";
 export default {
-  name: "UserProfile",
+  name: "UserProfileDetails",
   data() {
     return {
       user: {
@@ -99,7 +97,6 @@ export default {
     }
   },
   components: {
-    UserHeader,
     ButtonWhite,
   },
   methods: {
@@ -277,3 +274,4 @@ export default {
   justify-content: flex-end;
 }
 </style>
+

@@ -1,11 +1,11 @@
-import UserLogin from "./pages/UserLogin.vue";
-import UserSignup from "./pages/UserSignup.vue";
-import UserHome from "./pages/UserHome.vue";
-import UserProifle from "./pages/UserProfile.vue";
-import UserBookings from "./pages/UserBookings.vue";
-import UserReviews from "./pages/UserReviews.vue";
-import CampsiteView from "./pages/CampsiteView.vue";
-import CampsiteList from "./pages/CampsiteList.vue"
+import UserLogin from "./pages/LoginPage.vue";
+import UserSignup from "./pages/SignupPage.vue";
+import UserHome from "./pages/HomePage.vue";
+import UserProifle from "./pages/ProfilePage.vue";
+import UserBookings from "./pages/BookingsPage.vue";
+import UserReviews from "./pages/ReviewsPage.vue";
+import CampsitePage from "./pages/CampsitePage.vue";
+import CampsitesPage from "./pages/CampsitesPage.vue"
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -41,13 +41,13 @@ const routes = [
     path: "/reviews",
   },
   {
-    name: "CampsiteView",
-    component: CampsiteView,
+    name: "CampsitePage",
+    component: CampsitePage,
     path: "/campsite/:id",
   },
   {
-    name: "CampsiteList",
-    component: CampsiteList,
+    name: "CampsitesPage",
+    component: CampsitesPage,
     path: "/campsites",
   },
 ];

@@ -39,7 +39,6 @@ export default {
         );
         if (result.status == 200 && result.data != null) {
           this.reviewList = result.data;
-          console.log(this.reviewList);
         }
       } catch (error) {
         console.log(error);

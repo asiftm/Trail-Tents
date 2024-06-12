@@ -1,10 +1,6 @@
 <template>
   <div class="main">
-    <div class="heading" id="welcome-txt">
-      Welcome to
-      <p id="main-title">Trail Tents</p>
-      <p id="welcome-moto">Explore. Equip. Embrace the Outdoors.</p>
-    </div>
+    <WelcomeText />
     <div class="container">
       <div class="login form">
         <header>Login</header>
@@ -36,6 +32,7 @@
 
 <script>
 import axios from "axios";
+import WelcomeText from '../components/WelcomeText.vue';
 export default {
   name: "UserLogin",
   data() {
@@ -44,6 +41,10 @@ export default {
       password: "",
       errorMessage: "",
     };
+  },
+  
+  components: {
+    WelcomeText,
   },
   methods: {
     LoadSignUpPage() {

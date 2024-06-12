@@ -1,38 +1,49 @@
 <template>
-  <div>
-    <UserHeader />
-    <div class="campsite-container">
-      <CampsiteCard v-for="campsite in campsites" :key="campsite.id" :campsite="campsite" />
-    </div>
-    
+  <div class="campsite-container">
+    <CampsiteCard
+      v-for="campsite in campsites"
+      :key="campsite.id"
+      :campsite="campsite"
+    />
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import CampsiteCard from "../components/CampsiteCard.vue";
-import UserHeader from "../components/UserHeader.vue";
-import axios from 'axios';
 
 export default {
   name: "CampsiteList",
   data() {
     return {
       campsites: [],
+      dataLength: -1,
+    };
+  },
+  props: {
+    numOfCampsiteToShow: {
+      type: Number,
+      default: -1,
     }
   },
   components: {
     CampsiteCard,
-    UserHeader
+  },
+  computed: {
+    computedCampsiteLimit() {
+      return this.numOfCampsiteToShow > 0 ? this.numOfCampsiteToShow : this.dataLength;
+    }
   },
   methods: {
     async GetCampsites() {
       try {
         let result = await axios.get(`https://localhost:5272/CampingSite`);
         if (result.status == 200 && result.data != null) {
-          this.campsites = result.data;
+          this.dataLength = result.data.length;
+          this.campsites = result.data.slice(0, this.computedCampsiteLimit);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
   },
@@ -44,7 +55,7 @@ export default {
       this.GetCampsites();
     }
   },
-}
+};
 </script>
 
 <style scoped>
@@ -56,9 +67,10 @@ export default {
   font-size: 16px;
 }
 
-.campsite-container{
+.campsite-container {
+  margin-top: 10px;
   display: flex;
-  flex-direction: row ;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
 }
