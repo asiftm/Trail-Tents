@@ -1,21 +1,20 @@
 <template>
   <div class="reviews-container">
-    <label> Reviews (Total: {{ reviewList.length }}) </label>
     <div class="review" v-for="(i, index) in this.reviewList" :key="index">
-        <div class="review-item" id="username">
-          <p>{{ i.username }}</p>
+      <div class="review-item" id="username">
+        <p>{{ i.username }}</p>
+      </div>
+      <div class="review-item" id="comment">
+        <p>{{ i.comment }}</p>
+      </div>
+      <div class="review-item" id="rating">
+        <div class="rating-star-container" v-for="(i, index) in 5 - i.rating" :key="index">
+          <img src="../assets/review_star_white.png" alt="">
         </div>
-        <div class="review-item" id="comment">
-          <p>{{ i.comment }}</p>
+        <div class="rating-star-container" v-for="(i, index) in i.rating" :key="index">
+          <img src="../assets/review_star_yellow.png" alt="">
         </div>
-        <div class="review-item" id="rating">
-          <div class="rating-star-container" v-for="(i, index) in 5-i.rating" :key="index">
-            <img src="../assets/review_star_white.png" alt="">
-          </div>
-          <div class="rating-star-container" v-for="(i, index) in i.rating" :key="index">
-            <img src="../assets/review_star_yellow.png" alt="">
-          </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +38,7 @@ export default {
         );
         if (result.status == 200 && result.data != null) {
           this.reviewList = result.data;
+          this.$emit('totalReview', this.reviewList.length);
         }
       } catch (error) {
         console.log(error);
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style scoped>
-label{
+label {
   font-weight: 600;
   font-size: 22px;
 }
@@ -72,14 +72,14 @@ label{
   position: relative;
 }
 
-#username p{
+#username p {
   font-size: 24px;
   padding: 3px 0px 10px 10px;
   margin: 0;
 
 }
 
-#comment p{
+#comment p {
   padding: 0px 10px 10px 10px;
   margin: 0;
 }
@@ -101,6 +101,6 @@ label{
   height: 20px;
   width: 20px;
   padding: 0px;
-  margin:2px;
+  margin: 2px;
 }
 </style>

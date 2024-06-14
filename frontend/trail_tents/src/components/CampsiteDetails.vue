@@ -1,48 +1,49 @@
 <template>
   <div class="vertical-container">
-    <div>
-      <div id="campsite-name">
-        <p>{{ this.campsite.name }}</p>
-      </div>
-      <div class="campsiteContainer">
-        <div class="left-right-container" id="left-container">
-          <div id="img-container">
-            <img :src="this.campsite.displayImage" alt="" />
-            <ButtonWhite v-on:click="UploadPhoto()" text="Upload Photo" />
-          </div>
-        </div>
-        <div class="left-right-container" id="right-container">
-          <div class="campsite_details">
-            <label> Rating </label>
-            <div id="rating-star-container">
-              <div class="rating-stars" v-for="(i, index) in 5 - this.campsite.rating" :key="index">
-                <img src="../assets/review_star_white.png" alt="" />
-              </div>
-              <div class="rating-stars" v-for="(i, index) in this.campsite.rating" :key="index">
-                <img src="../assets/review_star_yellow.png" alt="" />
-              </div>
-            </div>
-          </div>
-          <div class="campsite_details" id="location">
-            <label> Location </label>
-            <p>{{ this.campsite.location }}</p>
-          </div>
-          <div class="campsite_details" id="priceperday">
-            <label> Price </label>
-            <p>{{ this.campsite.pricePerDay }} euro / day</p>
-          </div>
-          <div class="campsite_details" id="description">
-            <label> Description </label>
-            <p>{{ this.campsite.description }}</p>
-          </div>
-          <div class="campsite_details" id="reviews">
-            <CampsiteReviewCard />
-          </div>
-        </div>
-      </div>
-
+    <div id="campsite-name">
+      <p>{{ this.campsite.name }}</p>
     </div>
-
+    <div class="campsiteContainer">
+      <div class="left-right-container" id="left-container">
+        <div id="img-container">
+          <img :src="this.campsite.displayImage" alt="" />
+          <ButtonWhite v-on:click="ShowBookingOverlay(true)" text="Book Now!" />
+        </div>
+      </div>
+      <div class="left-right-container" id="right-container">
+        <div class="campsite_details">
+          <label> Rating </label>
+          <div id="rating-star-container">
+            <RatingStars :rating="campsite.rating" />
+          </div>
+        </div>
+        <div class="campsite_details" id="location">
+          <label> Location </label>
+          <p>{{ this.campsite.location }}</p>
+        </div>
+        <div class="campsite_details" id="priceperday">
+          <label> Price </label>
+          <p>{{ this.campsite.pricePerDay }} euro / day</p>
+        </div>
+        <div class="campsite_details" id="description">
+          <label> Description </label>
+          <p>{{ this.campsite.description }}</p>
+        </div>
+        <div class="campsite_details" id="reviews">
+          <div id="review-box">
+            <label> Reviews (Total: {{ totalReview }}) </label>
+            <ButtonWhite v-on:click="ShowReviewOverlay(true)" text="Add Review!" />
+          </div>
+          <CampsiteReviewCard @totalReview="ShowTotalReview($event)" />
+        </div>
+      </div>
+    </div>
+    <div v-if="bookingOverlay" class="bookingOverlay">
+      <BookingProcess :campsite="campsite" @closeBookingOverlay="ShowBookingOverlay()" />
+    </div>
+    <div v-if="reviewOverlay" class="reviewOverlay">
+      <AddReview :campsite="campsite" @closeReviewOverlay="ShowReviewOverlay()" />
+    </div>
   </div>
 </template>
 
@@ -50,12 +51,18 @@
 import axios from "axios";
 import CampsiteReviewCard from "../components/CampsiteReviewCard.vue"
 import ButtonWhite from "../components/ButtonWhite.vue"
+import RatingStars from "../components/RatingStars.vue";
+import BookingProcess from "../components/BookingProcess.vue";
+import AddReview from "../components/AddReview.vue";
 
 export default {
   name: "CampsiteContainer",
   components: {
     CampsiteReviewCard,
     ButtonWhite,
+    RatingStars,
+    BookingProcess,
+    AddReview
   },
   data() {
     return {
@@ -64,10 +71,13 @@ export default {
         name: "",
         location: "",
         description: "",
-        pricePerDay: 12,
-        rating: 0,
+        pricePerDay: null,
+        rating: null,
         displayImage: "",
       },
+      bookingOverlay: false,
+      reviewOverlay: false,
+      totalReview: null,
     };
   },
   methods: {
@@ -83,8 +93,14 @@ export default {
         console.log(error);
       }
     },
-    UploadPhoto(){
-      console.log("adfs")
+    ShowBookingOverlay(value) {
+      this.bookingOverlay = value;
+    },
+    ShowReviewOverlay(value) {
+      this.reviewOverlay = value;
+    },
+    ShowTotalReview(total){
+      this.totalReview = total;
     }
   },
   mounted() {
@@ -105,13 +121,15 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-#campsite-name{
+#campsite-name {
   font-size: 34px;
   font-weight: 600;
 }
-#campsite-name p{
+
+#campsite-name p {
   text-align: center;
   margin: 10px;
 }
@@ -162,13 +180,7 @@ export default {
   font-size: 22px;
 }
 
-#rating-star-container {
-  margin: 10px -1px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
+#rating-star-container {}
 
 .rating-stars img {
   height: 20px;
@@ -180,4 +192,19 @@ export default {
 #description {
   width: 90%;
 }
+
+.bookingOverlay {
+  padding: 10px;
+  width: 1000px;
+  position: absolute;
+  top: 100px;
+}
+
+#review-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 </style>

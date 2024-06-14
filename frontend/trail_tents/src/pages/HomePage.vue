@@ -4,7 +4,7 @@
       <UserHeader />
       <WelcomeText />
       <CampsiteList :numOfCampsiteToShow = 6 />
-      <ButtonWhite v-on:click="CampsiteList()" text="See More" id="more-btn" />
+      <ButtonWhite v-on:click="CampsiteList()" text="See More Campsites" id="more-btn" />
       <div id="search-area">
         <div id="search-box-container">
           <input id="search-box" type="text" placeholder="Campsite name" />
@@ -100,7 +100,7 @@ export default {
 }
 
 #more-btn {
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 #search-area {

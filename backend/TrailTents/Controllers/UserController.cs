@@ -45,7 +45,18 @@ namespace TrailTents.Controllers
                 return BadRequest("Invalid ID");
             }
         }
-
+        [HttpGet("{id}/Bookings")]
+        public ActionResult GetBookings(int id)
+        {
+            try
+            {
+                return Ok(_anonymousDataContext.GetBookingsByUserID(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Invalid ID");
+            }
+        }
         [HttpPost]
         public ActionResult PostUser([FromBody] User user)
         {

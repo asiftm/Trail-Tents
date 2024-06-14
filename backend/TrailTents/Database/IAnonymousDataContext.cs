@@ -15,6 +15,8 @@ namespace TrailTents.Database
         List<Booking> GetAllBookings();
         Booking GetBookingByID(int id);
         bool AddBooking(Booking booking);
+        List<Booking> GetBookingsByUserID(int id);
+        List <Booking> GetBookingsByCampingSiteID(int Id);
 
 
         // CampingSite

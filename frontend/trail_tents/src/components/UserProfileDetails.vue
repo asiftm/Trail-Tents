@@ -2,12 +2,15 @@
   <div class="main">
     <div class="profile-container">
       <div class="left-right-container" id="left-container">
-        <div class="left-container-item" id="profile-photo-container">
-          <img :src="user.profilePicture" alt="">
-          <ButtonWhite v-on:click="Reset()" text="Upload Photo" />
-        </div>
         <div class="left-container-item" id="username-container">
           <p>{{ fullname }}</p>
+        </div>
+        <div class="left-container-item" id="profile-photo-container">
+          <img :src="user.profilePicture" alt="">
+        </div>
+        <div class="left-container-item" id="upload-container">
+          <input type="file">
+          <ButtonWhite v-on:click="Reset()" text="Upload Photo" />
         </div>
       </div>
       <div class="left-right-container" id="right-container">
@@ -60,7 +63,8 @@
             <div class="details-lbl">
               <p>Confirm Password</p>
             </div>
-            <div class="details-input-container"><input type="password" class="userinput" v-model="user.confirmPassword">
+            <div class="details-input-container"><input type="password" class="userinput"
+                v-model="user.confirmPassword">
             </div>
           </div>
         </div>
@@ -75,7 +79,8 @@
 
 <script>
 import axios from "axios";
-import ButtonWhite from "../components/ButtonWhite.vue";
+import ButtonWhite from "./ButtonWhite.vue"
+
 export default {
   name: "UserProfileDetails",
   data() {
@@ -119,7 +124,9 @@ export default {
               profilePicture: this.user.profilePicture,
             });
             if (result.status == 200) {
+              this.user.dateOfBirth = this.formatDate(this.user.dateOfBirth);
               localStorage.setItem("userInfo", JSON.stringify(this.user));
+              this.Reset();
             }
           }
         }
@@ -133,7 +140,7 @@ export default {
     },
     CheckFields() {
       for (const key in this.user) {
-        if (this.user[key] === null || this.user[key] === "") {
+        if (this.user[key] === null) {
           return false;
         }
       }
@@ -160,11 +167,21 @@ export default {
       }
     },
     formatDate(dateStr) {
-      // Expected format: dd/mm/yyyy
-      const [day, month, year] = dateStr.split('/');
-      const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      let formattedDate;
+      if (dateStr.includes('/')) {
+        // Input format: dd/mm/yyyy
+        const [day, month, year] = dateStr.split('/');
+        formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      } else if (dateStr.includes('-')) {
+        // Input format: yyyy-mm-dd
+        const [year, month, day] = dateStr.split('-');
+        formattedDate = `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+      } else {
+        // Handle unsupported input format
+        throw new Error('Unsupported date format');
+      }
       return formattedDate;
-    },
+    }
   },
   mounted() {
     this.Reset();
@@ -229,6 +246,13 @@ export default {
   font-weight: 600;
 }
 
+#upload-container{
+  margin-top: 20px;
+}
+#upload-container input{
+  margin-bottom: 20px;
+}
+
 #right-container {
   width: 75%;
   font-size: 18px;
@@ -250,7 +274,7 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
   align-items: center;
-  margin: 0px 15px;
+  margin: 10px 15px;
 }
 
 .details-lbl {
@@ -274,4 +298,3 @@ export default {
   justify-content: flex-end;
 }
 </style>
-

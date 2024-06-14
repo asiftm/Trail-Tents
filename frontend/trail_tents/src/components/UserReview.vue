@@ -1,8 +1,5 @@
 <template>
   <div class="main">
-    <p>
-      My Reviews (Total : {{ reviewList.length }})
-    </p>
     <div class="review-container">
       <div class="review" v-for="(item, index) in reviewList" :key="index">
         <div class="review-item" id="campsiteName">
@@ -11,14 +8,9 @@
         <div class="review-item" id="comment">
           {{ item.comment }}
         </div>
-        <div class="review-item" id="rating">
-          <div class="rating-star-container" v-for="(i, index) in 5 - item.rating" :key="index">
-            <img src="../assets/review_star_white.png" alt="">
-          </div>
-          <div class="rating-star-container" v-for="(i, index) in item.rating" :key="index">
-            <img src="../assets/review_star_yellow.png" alt="">
-          </div>
-        </div>
+        <div class="campsite-rating">
+        <RatingStars :rating="item.rating" />
+      </div>
       </div>
     </div>
   </div>
@@ -26,6 +18,7 @@
 
 <script>
 import axios from "axios";
+import RatingStars from "./RatingStars.vue";
 
 export default {
   name: "UserReview",
@@ -34,6 +27,9 @@ export default {
       user_id: null,
       reviewList: []
     }
+  },
+  components:{
+    RatingStars,
   },
   methods: {
     async GetUserReviews() {
@@ -49,9 +45,9 @@ export default {
               campsiteName: campsitedata.name
             }
             this.reviewList.push(dataDict);
-            console.log(typeof (dataDict.rating))
           }
         }
+        console.log(this.reviewList.length)
       } catch (error) {
         console.log(error)
       }
@@ -71,7 +67,7 @@ export default {
       if (!userInfo) {
         this.$router.push({ name: "UserLogin" });
       } else {
-        this.$router.push({ name: 'CampsiteView', params: { id: campsiteID } });
+        this.$router.push({ name: 'CampsitePage', params: { id: campsiteID } });
       }
     }
   },
@@ -130,25 +126,9 @@ export default {
   padding: 5px;
 }
 
-
-#rating {
-  padding: 0;
+#rating{
   display: flex;
-  flex-direction: row;
-  position: absolute;
-  top: -15px;
-  right: 0;
-}
-
-.rating-star-container {
-  display: flex;
-}
-
-.rating-star-container img {
-  height: 20px;
-  width: 20px;
-  padding: 0px;
-  margin: 2px;
+  flex-direction: column;
 }
 
 #campsiteName {

@@ -1,19 +1,26 @@
 <template>
   <div>
     <UserHeader />
-    <USerReview />
+    <div class="main">
+      <UserReview />
+    </div>
   </div>
 </template>
 
 <script>
 import UserHeader from "../components/UserHeader.vue";
-import USerReview from "../components/UserReview.vue"
+import UserReview from "../components/UserReview.vue";
 
-export default{
-  name:"UserReviews",
-  components:{
+export default {
+  name: "UserReviews",
+  data() {
+    return {
+      reviewOverlay: false,
+    }
+  },
+  components: {
     UserHeader,
-    USerReview
+    UserReview,
   },
   mounted() {
     let userInfo = localStorage.getItem("userInfo");

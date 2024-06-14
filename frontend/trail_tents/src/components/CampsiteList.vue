@@ -1,10 +1,6 @@
 <template>
   <div class="campsite-container">
-    <CampsiteCard
-      v-for="campsite in campsites"
-      :key="campsite.id"
-      :campsite="campsite"
-    />
+    <CampsiteCard v-for="campsite in campsites" :key="campsite.id" :campsite="campsite" />
   </div>
 </template>
 

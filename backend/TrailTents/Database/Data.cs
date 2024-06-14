@@ -5,7 +5,7 @@ namespace TrailTents.Database
 {
     public class Data
     {
-        private string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=trailtents;";
+        private string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=trailtents;AllowZeroDateTime=True";
         MySqlConnection connection;
         MySqlCommand command;
 
@@ -23,8 +23,6 @@ namespace TrailTents.Database
         }
         public MySqlDataReader SelectQuery(string query)
         {
-            Console.WriteLine(query);
-
             OpenConnection();
             command = new MySqlCommand(query, connection);
             return command.ExecuteReader();

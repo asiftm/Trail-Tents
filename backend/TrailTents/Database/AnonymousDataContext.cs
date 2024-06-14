@@ -38,6 +38,14 @@ namespace TrailTents.Database
         {
             return booking.AddBooking(booking);
         }
+        public List<Booking> GetBookingsByUserID(int id)
+        {
+            return booking.GetBookingsByUserID(id);
+        }
+        public List<Booking> GetBookingsByCampingSiteID(int id)
+        {
+            return booking.GetBookingsByCampingSiteID(id);
+        }
 
 
         // Camping Site

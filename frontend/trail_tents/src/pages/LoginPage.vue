@@ -37,8 +37,8 @@ export default {
   name: "UserLogin",
   data() {
     return {
-      email: "",
-      password: "",
+      email: "asifmahmud0231@gmail.com",
+      password: "123",
       errorMessage: "",
     };
   },
