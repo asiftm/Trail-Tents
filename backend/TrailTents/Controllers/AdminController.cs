@@ -38,5 +38,18 @@ namespace TrailTents.Controllers
             if (_anonymousDataContext.UpdateAdmin(admin,id)) return Ok();
             return BadRequest(admin);
         }
+        [HttpGet("Verification")]
+        public ActionResult VerifyAdmin(string email, string password)
+        {
+            Admin admin = _anonymousDataContext.VerifyAdmin(email, password);
+            try
+            {
+                return Ok(admin);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Invalid ID");
+            }
+        }
     }
 }

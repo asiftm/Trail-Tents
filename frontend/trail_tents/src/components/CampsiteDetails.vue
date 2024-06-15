@@ -42,7 +42,7 @@
       <BookingProcess :campsite="campsite" @closeBookingOverlay="ShowBookingOverlay()" />
     </div>
     <div v-if="reviewOverlay" class="reviewOverlay">
-      <AddReview :campsite="campsite" @closeReviewOverlay="ShowReviewOverlay()" />
+      <AddReview :campsite_id="campsite.id" @closeReviewOverlay="ShowReviewOverlay()" />
     </div>
   </div>
 </template>
@@ -95,11 +95,17 @@ export default {
     },
     ShowBookingOverlay(value) {
       this.bookingOverlay = value;
+      if (value) {
+        this.reviewOverlay = false;
+      }
     },
     ShowReviewOverlay(value) {
       this.reviewOverlay = value;
+      if (value) {
+        this.bookingOverlay = false;
+      }
     },
-    ShowTotalReview(total){
+    ShowTotalReview(total) {
       this.totalReview = total;
     }
   },
@@ -200,11 +206,17 @@ export default {
   top: 100px;
 }
 
-#review-box{
+#review-box {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
+.reviewOverlay {
+  padding: 10px;
+  width: 700px;
+  position: absolute;
+  top: 100px;
+}
 </style>

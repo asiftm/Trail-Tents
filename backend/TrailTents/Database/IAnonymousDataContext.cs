@@ -9,6 +9,7 @@ namespace TrailTents.Database
         Admin GetAdminByID(int id);
         bool AddAdmin(Admin admin);
         bool UpdateAdmin(Admin admin,int id);
+        Admin VerifyAdmin(string email, string password);
 
 
         // Booking

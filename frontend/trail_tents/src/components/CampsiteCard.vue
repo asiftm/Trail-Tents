@@ -58,20 +58,19 @@ export default {
   margin: 7px 10px;
   width: 220px;
   height: 300px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   border-radius: 5%;
-  transition: 1s;
+  transition: .8s;
+  border: 2px solid #c2cbc9;
 }
 
 .campsite-card:hover {
   cursor: pointer;
-  transform: scale(1.2);
+  transform: scale(1.1);
   z-index: 100;
-  background-color: rgb(255, 255, 255);
 }
 
 

@@ -22,6 +22,10 @@ namespace TrailTents.Database
         {
             return admin.UpdateAdmin(admin,id);
         }
+        public Admin VerifyAdmin(string email, string password)
+        {
+            return admin.VerifyAdmin(email, password);
+        }
 
 
         // Bookings

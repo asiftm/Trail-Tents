@@ -1,12 +1,18 @@
 <template>
   <div class="campsite-container">
-    <CampsiteCard v-for="campsite in campsites" :key="campsite.id" :campsite="campsite" />
+    <div class="search-container">
+      <SearchBox v-if="searchBox" />
+    </div>
+    <div class="campsite-card-container">
+      <CampsiteCard v-for="campsite in campsites" :key="campsite.id" :campsite="campsite" />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import CampsiteCard from "../components/CampsiteCard.vue";
+import SearchBox from "../components/SearchBox.vue";
 
 export default {
   name: "CampsiteList",
@@ -20,10 +26,15 @@ export default {
     numOfCampsiteToShow: {
       type: Number,
       default: -1,
+    },
+    searchBox: {
+      type: Boolean,
+      default: true,
     }
   },
   components: {
     CampsiteCard,
+    SearchBox
   },
   computed: {
     computedCampsiteLimit() {
@@ -64,7 +75,16 @@ export default {
 }
 
 .campsite-container {
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container{
+  margin-top: 0px;
+}
+
+.campsite-card-container {
+  margin-top: 50px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

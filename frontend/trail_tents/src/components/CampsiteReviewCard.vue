@@ -65,10 +65,9 @@ label {
 
 .review {
   width: 90%;
-  border-radius: 4px;
+  border: 2px solid #c2cbc9;
+  border-radius: 10px;
   margin: 30px 0px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  background-color: #f0f0f0;
   position: relative;
 }
 

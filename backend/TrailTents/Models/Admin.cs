@@ -77,5 +77,18 @@ namespace TrailTents.Models
             }
             return false;
         }
+        public Admin VerifyAdmin(string email, string password)
+        {
+            Admin admin = null;
+
+            string query = $"SELECT * FROM `admin` WHERE Email = '{email}' and Password='{password}';";
+            MySqlDataReader reader = data.SelectQuery(query);
+            while (reader.Read())
+            {
+                admin = new Admin();
+                FillUser(reader, admin);
+            }
+            return admin;
+        }
     }
 }

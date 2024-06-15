@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <p>My Reviews</p>
     <div class="review-container">
       <div class="review" v-for="(item, index) in reviewList" :key="index">
         <div class="review-item" id="campsiteName">
@@ -91,6 +92,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
 
 .main p {
@@ -113,12 +115,13 @@ export default {
 }
 
 .review {
+  margin-top: 20px;
   height: auto;
   width: 600px;
   border-radius: 4px;
   margin-bottom: 30px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  background-color: #f0f0f0;
+  border: 2px solid #c2cbc9;
+  border-radius: 10px;
   position: relative;
 }
 

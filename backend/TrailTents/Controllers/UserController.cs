@@ -68,7 +68,7 @@ namespace TrailTents.Controllers
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
             if (_anonymousDataContext.UpdateUser(user,id)) return Ok();
-            return BadRequest(user);
+            return BadRequest("Email Already in Use");
         }
 
         [HttpGet("Verification")]

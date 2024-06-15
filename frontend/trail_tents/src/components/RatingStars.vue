@@ -25,7 +25,6 @@ export default {
 
 <style>
 #rating {
-  background-color: #ffffff;
   border-radius: 5px;
   padding: 0;
   display: flex;

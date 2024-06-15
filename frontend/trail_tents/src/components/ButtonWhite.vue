@@ -17,11 +17,12 @@ button {
   font-weight: 600;
   padding: 5px 10px;
   margin: 0 10px;
-  border: none;
+  border: 2px solid #c2cbc9;
   border-radius: 20px;
   transition: 0.3s;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   font-family: "Ysabeau Infant", sans-serif;
+  background-color: #eaf7df;
+  color: #252324;
 }
 
 button:hover {

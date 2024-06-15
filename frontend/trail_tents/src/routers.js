@@ -2,10 +2,11 @@ import UserLogin from "./pages/LoginPage.vue";
 import UserSignup from "./pages/SignupPage.vue";
 import UserHome from "./pages/HomePage.vue";
 import UserProifle from "./pages/ProfilePage.vue";
-import UserBookings from "./pages/BookingsPage.vue";
+import BookingsPage from "./pages/BookingsPage.vue";
 import UserReviews from "./pages/ReviewsPage.vue";
 import CampsitePage from "./pages/CampsitePage.vue";
 import CampsitesPage from "./pages/CampsitesPage.vue"
+import AdminHome from "./pages/AdminHome.vue"
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -31,8 +32,8 @@ const routes = [
     path: "/profile",
   },
   {
-    name: "UserBookings",
-    component: UserBookings,
+    name: "BookingsPage",
+    component: BookingsPage,
     path: "/bookings",
   },
   {
@@ -49,6 +50,11 @@ const routes = [
     name: "CampsitesPage",
     component: CampsitesPage,
     path: "/campsites",
+  },
+  {
+    name: "AdminHome",
+    component: AdminHome,
+    path: "/admin",
   },
 ];
 

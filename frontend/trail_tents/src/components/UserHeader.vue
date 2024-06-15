@@ -23,7 +23,7 @@
 <script>
 import ButtonWhite from "./ButtonWhite.vue"
 export default {
-  name: "USerHeader",
+  name: "UserHeader",
   components: {
     ButtonWhite,
   },
@@ -44,7 +44,7 @@ export default {
     UserBookings() {
       let user = localStorage.getItem("userInfo");
       if (user) {
-      this.$router.push({ name: "UserBookings" });
+      this.$router.push({ name: "BookingsPage" });
       }
       else{
         this.$router.push({ name: "UserLogin" });
@@ -78,9 +78,20 @@ export default {
   display: flex;
   justify-content: space-between;
   z-index: 100;
-  color: #313638;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  /* background-color: #b3eda9; */
+  /* background-color: #105d5e; */
+  /* background-color: #009a6e; */
+  /* background-color: #ebfadb; */
+  /* background-color: #293e33; */
+  /* background-color: #767f7d; */
+  /* background-color: #c2cbc9; */
+  /* background-color: #e8e300; */
+  /* background-color: #4d7111; */
+  /* background-color: #c3e956; */
+  /* background-color: #91eaaf; */
+  background-color: #eaf7df;
   border-radius: 10px;
+  margin: 15px;
 }
 
 .left {

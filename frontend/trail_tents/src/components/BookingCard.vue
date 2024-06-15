@@ -18,19 +18,12 @@
         </div>
       </div>
     </div>
-    <div class="add-btn">
-      <PlusButton text="Add Review!" v-on:click="ShowOverlay(true)" />
-    </div>
   </div>
 </template>
 
 <script>
-import PlusButton from "../components/PlusButton.vue";
 export default {
   name: "BookingCard",
-  components: {
-    PlusButton
-  },
   props: {
     booking: {
       type: Object,
@@ -73,10 +66,10 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 5px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  background-color: #f0f0f0;
+  margin: 15px;
   width: 1000px;
+  border: 2px solid #c2cbc9;
+  border-radius: 10px;
 }
 
 .section {

@@ -3,8 +3,13 @@
     <UserHeader />
     <div id="container">
       <h1 class="heading">My Bookings</h1>
-      <div v-for="booking in bookings" :key="booking.id">
-        <BookingCard :booking="booking" :campsite="FindCampsiteById(booking.campsiteID)" />
+      <div v-if="bookings.length && campsites.length">
+        <div v-for="booking in bookings" :key="booking.id">
+          <BookingCard v-if="FindCampsiteById(booking.campsiteID)" :booking="booking" :campsite="FindCampsiteById(booking.campsiteID)" />
+        </div>
+      </div>
+      <div v-else>
+        <p>Loading bookings and campsites...</p>
       </div>
     </div>
   </div>
@@ -14,7 +19,7 @@ import axios from "axios"
 import UserHeader from "../components/UserHeader.vue";
 import BookingCard from "../components/BookingCard.vue";
 export default {
-  name: "UserBookings",
+  name: "BookingsPage",
   data() {
     return {
       user_id: null,
@@ -24,7 +29,7 @@ export default {
   },
   components: {
     UserHeader,
-    BookingCard
+    BookingCard,
   },
 
   methods: {

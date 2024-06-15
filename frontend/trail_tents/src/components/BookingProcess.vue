@@ -123,9 +123,9 @@ export default {
 <style scoped>
 #main {
   padding: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: #eaf7df;
   border-radius: 20px;
-  border: 5px solid gray;
+  border: 2px solid #c2cbc9;
 }
 
 .container {

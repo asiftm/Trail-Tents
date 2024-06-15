@@ -1,20 +1,16 @@
 <template>
   <div id="main">
-    <div id="right-container">
-      <p>Select Available Dates and Book Now!</p>
-      <div id="datepickiers-container">
-        <div class="datepicker">
-          <label>From: </label>
-          <input type="date" id="dateFrom" v-model="bookingStartDate">
-        </div>
-        <div class="datepicker">
-          <label>To: </label>
-          <input type="date" id="dateTo" v-model="bookingEndDate">
-        </div>
+    <div id="container">
+      <P>Rate this campsite and leave a comment</P>
+      <div class="item" id="review">
+        <label>Rating (out of 5): </label>
+        <input type="number" max="5" min="1" v-model="rating">
       </div>
-      <div>
-        <ButtonWhite v-on:click="Booking()" text="Book" />
+      <div class="item" id="comment">
+        <label>Review: </label>
+        <textarea placeholder="Write your comment here" v-model="comment"></textarea>
       </div>
+      <ButtonWhite v-on:click="AddReview()" class="save-btn" text="Save Review" />
     </div>
     <ButtonWhite v-on:click="Close()" class="close-btn" text="Close" />
   </div>
@@ -28,53 +24,63 @@ export default {
   name: "AddReview",
   data() {
     return {
-      campsiteID: null,
+      user_id: null,
+      user_name: "",
+      campsiteID: this.campsite_id,
       userID: null,
       rating: null,
       comment: "",
       username: ""
     }
   },
+  props:{
+    campsite_id: {
+      type: Number,
+      required: true
+    }
+  },
   components: {
     ButtonWhite,
   },
-  methods: {
-    async Booking() {
-      if (this.bookingStartDate != "" && this.bookingEndDate != "") {
-        try {
-          let result = await axios.post("https://localhost:5272/Booking", {
-            campsiteID: this.campsite.id,
-            userID: this.user_id,
-            bookingStartDate: this.formatDate(this.bookingStartDate),
-            bookingEndDate: this.formatDate(this.bookingEndDate)
+methods: {
+    async AddReview() {
+    if (this.rating != null && this.comment != "") {
+      try {
+        let result = await axios.post("https://localhost:5272/Review", {
+          campsiteID: this.campsiteID,
+          userID: this.user_id,
+          rating: this.rating,
+          comment: this.comment,
+          username: this.user_name,
           });
-          if (result.status == 200) {
-            this.$router.push({ name: "CampsitesPage" });
-          }
-        }
-        catch {
-          confirm("Change your booking dates please.")
+        if (result.status == 200) {
+          window.location.reload();
         }
       }
-      else {
-        confirm("Select your booking dates please.")
+      catch {
+        confirm("Try again please.")
       }
-    },
-    Close() {
-      this.$emit('closeOverlay', false)
-    }
-  },
-  mounted() {
-    let userInfo = localStorage.getItem("userInfo");
-    if (!userInfo) {
-      this.$router.push({ name: "UserLogin" });
     }
     else {
-      const user = JSON.parse(userInfo);
-      this.user_id = user.id;
-      console.log("hello")
+      confirm("Write a comment and rate the campsite please.")
     }
   },
+  Close() {
+    this.$emit('closeReviewOverlay', false)
+  }
+},
+mounted() {
+  let userInfo = localStorage.getItem("userInfo");
+  if (!userInfo) {
+    this.$router.push({ name: "UserLogin" });
+  }
+  else {
+    const user = JSON.parse(userInfo);
+    this.user_id = user.id;
+    this.user_name = user.firstname+ " " + user.lastname;
+    console.log("hello")
+  }
+},
 }
 
 </script>
@@ -82,48 +88,39 @@ export default {
 
 <style scoped>
 #main {
-  padding: 10px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 20px;
-  border: 5px solid gray;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-
-#left-container p {
-  font-size: 24px;
-  font-weight: 600;
-}
-
-#left-container {}
-
-#right-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-}
-
-#datepickiers-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-}
-
-.datepicker {
   padding: 20px;
+  background-color: #eaf7df;
+  border-radius: 20px;
+  border: 2px solid gray;
 }
 
-.bookings {
-  margin: 20px;
+.save-btn{
+  margin-top: 20px;
+}
+
+p{
+  font-size: 28px;
+  text-align: center;
+}
+
+label{
+  font-size: 24px;
+}
+
+input{
+  width: 40px;
+}
+
+#comment textarea{
+  height: 200px;
+  width: 90%;
+  max-width: 600px;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
 }
 
 .close-btn {

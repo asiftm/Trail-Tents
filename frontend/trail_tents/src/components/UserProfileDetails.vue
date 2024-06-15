@@ -107,26 +107,15 @@ export default {
   methods: {
     async UniqueEmail() {
       let decision = await axios.get(`https://localhost:5272/User/${this.email}/UniqueEmail`);
+      console.log(decision.data)
       return decision.data;
     },
     async UpdateProfile() {
       if (this.CheckFields()) {
         if (this.user.password === this.user.confirmPassword) {
           if (confirm("Are you sure?")) {
-            let result = await axios.put(`https://localhost:5272/User/${this.user.id}`, {
-              firstname: this.user.firstname,
-              lastname: this.user.lastname,
-              dateOfBirth: this.user.dateOfBirth,
-              email: this.user.email,
-              address: this.user.address,
-              contactNumber: this.user.contactNumber,
-              password: this.user.password,
-              profilePicture: this.user.profilePicture,
-            });
-            if (result.status == 200) {
-              this.user.dateOfBirth = this.formatDate(this.user.dateOfBirth);
-              localStorage.setItem("userInfo", JSON.stringify(this.user));
-              this.Reset();
+            if (await this.UniqueEmail()) {
+              this.UpdateUser();
             }
           }
         }
@@ -138,6 +127,29 @@ export default {
         confirm("Please fill all fields.");
       }
     },
+    async UpdateUser() {
+      try {
+        let result = await axios.put(`https://localhost:5272/User/${this.user.id}`, {
+          firstname: this.user.firstname,
+          lastname: this.user.lastname,
+          dateOfBirth: this.user.dateOfBirth,
+          email: this.user.email,
+          address: this.user.address,
+          contactNumber: this.user.contactNumber,
+          password: this.user.password,
+          profilePicture: this.user.profilePicture,
+        });
+        if (result.status == 200) {
+          this.user.dateOfBirth = this.formatDate(this.user.dateOfBirth);
+          localStorage.setItem("userInfo", JSON.stringify(this.user));
+          this.Reset();
+        }
+      }
+      catch {
+        confirm("Email already in use")
+      }
+    }
+    ,
     CheckFields() {
       for (const key in this.user) {
         if (this.user[key] === null) {
@@ -246,10 +258,11 @@ export default {
   font-weight: 600;
 }
 
-#upload-container{
+#upload-container {
   margin-top: 20px;
 }
-#upload-container input{
+
+#upload-container input {
   margin-bottom: 20px;
 }
 
@@ -285,8 +298,8 @@ export default {
   width: 100%;
   height: 45px;
   border-radius: 5px;
-  border: none;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid;
+  border-radius: 10px;
   padding: 2px;
   font-size: 20px;
   font-weight: 600;
