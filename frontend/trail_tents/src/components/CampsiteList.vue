@@ -1,10 +1,10 @@
 <template>
   <div class="campsite-container">
     <div class="search-container">
-      <SearchBox v-if="searchBox" />
+      <SearchBox v-if="searchBox" :campsites="campsites" @searchName="HandelNameSearch" @priceFrom="HandelPriceFrom" @priceTo="HandelPriceTo"  />
     </div>
     <div class="campsite-card-container">
-      <CampsiteCard v-for="campsite in campsites" :key="campsite.id" :campsite="campsite" />
+      <CampsiteCard v-for="campsite in filterCampsite" :key="campsite.id" :campsite="campsite" />
     </div>
   </div>
 </template>
@@ -20,6 +20,9 @@ export default {
     return {
       campsites: [],
       dataLength: -1,
+      searchString: '',
+      priceFrom: 0,
+      priceTo: 999999,
     };
   },
   props: {
@@ -39,6 +42,24 @@ export default {
   computed: {
     computedCampsiteLimit() {
       return this.numOfCampsiteToShow > 0 ? this.numOfCampsiteToShow : this.dataLength;
+    },
+    filterCampsite() {
+
+      let items = this.campsites;
+
+      if (this.searchString != '') {
+        items = items.filter(campsite => campsite.name.toLowerCase().includes(this.searchString.toLowerCase()) || campsite.location.toLowerCase().includes(this.searchString.toLowerCase()) );
+      }
+
+      if (this.priceFrom != 0) {
+        items = items.filter(campsite => campsite.pricePerDay > this.priceFrom)
+      }
+
+      if (this.priceTo != 999999) {
+        items = items.filter(campsite => campsite.pricePerDay < this.priceTo)
+      }
+
+      return items;
     }
   },
   methods: {
@@ -53,14 +74,25 @@ export default {
         console.log(error);
       }
     },
+    HandelNameSearch(value) {
+      this.searchString = value;
+    },
+    HandelPriceFrom(priceFrom){
+      this.priceFrom = priceFrom;
+      console.log(priceFrom)
+    },
+    HandelPriceTo(priceTo){
+      this.priceTo = priceTo;
+      console.log(priceTo)
+    }
   },
   mounted() {
     let userInfo = localStorage.getItem("userInfo");
-    if (!userInfo) {
+    let adminInfo = localStorage.getItem("adminInfo");
+    if (!userInfo && !adminInfo) {
       this.$router.push({ name: "UserLogin" });
-    } else {
-      this.GetCampsites();
     }
+    this.GetCampsites()
   },
 };
 </script>
@@ -79,7 +111,7 @@ export default {
   flex-direction: column;
 }
 
-.search-container{
+.search-container {
   margin-top: 0px;
 }
 

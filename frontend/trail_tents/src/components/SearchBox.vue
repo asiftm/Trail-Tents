@@ -2,50 +2,45 @@
   <div class="main">
     <div id="search-area">
       <div id="search-box-container">
-        <input id="search-box" type="text" placeholder="Campsite name" />
-      </div>
-      <div id="search-btn-container">
-        <ButtonWhite v-on:click="Search()" text="Search" />
+        <input id="search-box" type="text" placeholder="Search" v-model="name" v-on:input="SearchName()" />
       </div>
     </div>
-    <div id="filter-area">
-      <div class="picker">
-        <p class="picker-heading">Check-in date</p>
-        <input type="date" name="booking-start-date" class="filter" id="datepicker-start" />
-      </div>
-      <div class="picker">
-        <p class="picker-heading">Check-out date</p>
-        <input type="date" name="booking-end-date" class="filter" id="datepicker-end" />
-      </div>
-      <div class="picker">
-        <p class="picker-heading">Price</p>
-        <div id="priceranges">
-          <input v-model="priceFrom" type="number" placeholder="From" name="pricerange" class="filter" id="pricerange">
-          <input v-model="priceTo" type="number" placeholder="To" name="pricerange" class="filter" id="pricerange">
-        </div>
-      </div>
-      <div class="picker">
-        <p class="picker-heading">Location</p>
-        <input list="options" placeholder="Select location" name="location" class="filter" id="location" />
-        <datalist id="options">
-          <option value="Option 1"></option>
-          <option value="Option 2"></option>
-          <option value="Option 3"></option>
-          <option value="Option 4"></option>
-        </datalist>
+    <div class="picker">
+      <p class="picker-heading">Price</p>
+      <div id="priceranges">
+        <input v-model="priceFrom" v-on:change="SearchPriceFrom()" type="number" placeholder="From" name="pricerange"
+          class="filter" id="pricerange">
+        <input v-model="priceTo" v-on:change="SearchPriceTo()" type="number" placeholder="To" name="pricerange"
+          class="filter" id="pricerange">
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ButtonWhite from "../components/ButtonWhite.vue";
-
 export default {
   name: "SearchBox",
-  components: {
-    ButtonWhite,
+  date() {
+    return {
+      name: '',
+      priceFrom: 0,
+      priceTo: 999999,
+    }
   },
+  methods: {
+    SearchName() {
+      this.$emit('searchName', this.name.trim())
+    },
+    SearchPriceFrom() {
+      this.$emit('priceFrom', this.priceFrom)
+    },
+    SearchPriceTo() {
+      this.$emit('priceTo', this.priceTo)
+    },
+  },
+  mounted() {
+
+  }
 }
 </script>
 
@@ -55,13 +50,19 @@ export default {
   font-family: "Ysabeau Infant", sans-serif;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #search-area {
   margin-top: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  align-items: center;
 }
 
 #search-box-container {

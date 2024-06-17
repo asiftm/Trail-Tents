@@ -34,8 +34,10 @@ export default {
   },
   methods: {
     OpenCampsite(campsiteID) {
+      
       let userInfo = localStorage.getItem("userInfo");
-      if (!userInfo) {
+      let adminInfo = localStorage.getItem("adminInfo");
+      if (!userInfo && !adminInfo) {
         this.$router.push({ name: "UserLogin" });
       } else {
         this.$router.push({ name: 'CampsitePage', params: { id: campsiteID } });

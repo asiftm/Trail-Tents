@@ -17,7 +17,6 @@ namespace TrailTents.Models
         public string Address { get; set; }
         public string ContactNumber { get; set; }
         public string Password { get; set; }
-        public string ProfilePicture { get; set; }
 
         public List<User> GetAllUsers()
         {
@@ -53,13 +52,12 @@ namespace TrailTents.Models
             user.Address = reader.GetString(5);
             user.ContactNumber = reader.GetString(6);
             user.Password = reader.GetString(7);
-            user.ProfilePicture = reader.GetString(8);
             return user;
         }
         public bool AddUser(User user)
         {
             if (!user.CheckAllFields(user) || !user.UniqueEmail(user.Email)) return false;
-            string query = $"INSERT INTO `user` (`ID`, `Firstname`, `Lastname`, `Date_of_Birth`, `Email`, `Address`, `Contact_Number`, `Password`, `Profile_Picture`) VALUES (NULL, '{user.Firstname}', '{user.Lastname}', '{user.DateOfBirth}', '{user.Email}', '{user.Address}', '{user.ContactNumber}', '{user.Password}', '{user.ProfilePicture}');";
+            string query = $"INSERT INTO `user` (`ID`, `Firstname`, `Lastname`, `Date_of_Birth`, `Email`, `Address`, `Contact_Number`, `Password`) VALUES (NULL, '{user.Firstname}', '{user.Lastname}', '{user.DateOfBirth}', '{user.Email}', '{user.Address}', '{user.ContactNumber}', '{user.Password}');";
             if (data.NotSelectQuery(query) == 1)
             {
                 return true;
@@ -74,7 +72,7 @@ namespace TrailTents.Models
         public bool UpdateUser(User user,int id)
         {
             if (!user.CheckAllFields(user) || !user.UniqueEmailForUpdate(user,id)) return false;
-            string query = $"UPDATE `user` SET `Firstname` = '{user.Firstname}', `Lastname` = '{user.Lastname}', `Date_of_Birth` = '{user.DateOfBirth}', `Email` = '{user.Email}', `Address` ='{user.Address}', `Contact_Number` = '{user.ContactNumber}', `Password` = '{user.Password}', `Profile_Picture` = '{user.ProfilePicture}' WHERE `user`.`ID` = {id};";
+            string query = $"UPDATE `user` SET `Firstname` = '{user.Firstname}', `Lastname` = '{user.Lastname}', `Date_of_Birth` = '{user.DateOfBirth}', `Email` = '{user.Email}', `Address` ='{user.Address}', `Contact_Number` = '{user.ContactNumber}', `Password` = '{user.Password}' WHERE `user`.`ID` = {id};";
             if (data.NotSelectQuery(query) == 1)
             {
                 return true;

@@ -33,8 +33,8 @@ export default {
   name: "UserLogin",
   data() {
     return {
-      email: "a@admin",
-      password: "a",
+      email: "",
+      password: "",
       errorMessage: "",
     };
   },

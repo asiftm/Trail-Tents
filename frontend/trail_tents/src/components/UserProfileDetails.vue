@@ -1,77 +1,62 @@
 <template>
   <div class="main">
-    <div class="profile-container">
-      <div class="left-right-container" id="left-container">
-        <div class="left-container-item" id="username-container">
-          <p>{{ fullname }}</p>
+    <div class="username-details" id="right-container">
+      <p id="username-lbl">{{ fullname }}</p>
+      <div class="right-details-container">
+        <div class="details-container">
+          <div class="details-lbl">
+            <p>Firstname</p>
+          </div>
+          <div class="details-input-container"><input type="text" class="userinput" v-model="user.firstname"></div>
         </div>
-        <div class="left-container-item" id="profile-photo-container">
-          <img :src="user.profilePicture" alt="">
+        <div class="details-container">
+          <div class="details-lbl">
+            <p>Lastname</p>
+          </div>
+          <div class="details-input-container"><input type="text" class="userinput" v-model="user.lastname"></div>
         </div>
-        <div class="left-container-item" id="upload-container">
-          <input type="file">
-          <ButtonWhite v-on:click="Reset()" text="Upload Photo" />
+        <div class="details-container">
+          <div class="details-lbl">
+            <p>Date of Birth</p>
+          </div>
+          <div class="details-input-container"><input type="date" class="userinput" v-model="user.dateOfBirth"></div>
+        </div>
+        <div class="details-container">
+          <div class="details-lbl">
+            <p>Email</p>
+          </div>
+          <div class="details-input-container"><input type="text" class="userinput" v-model="user.email"></div>
+        </div>
+        <div class="details-container">
+          <div class="details-lbl">
+            <p>Address</p>
+          </div>
+          <div class="details-input-container"><input type="text" class="userinput" v-model="user.address"></div>
+        </div>
+        <div class="details-container">
+          <div class="details-lbl">
+            <p>Contact Number</p>
+          </div>
+          <div class="details-input-container"><input type="text" class="userinput" v-model="user.contactNumber">
+          </div>
+        </div>
+        <div class="details-container">
+          <div class="details-lbl">
+            <p>Password</p>
+          </div>
+          <div class="details-input-container"><input type="password" class="userinput" v-model="user.password"></div>
+        </div>
+        <div class="details-container">
+          <div class="details-lbl">
+            <p>Confirm Password</p>
+          </div>
+          <div class="details-input-container"><input type="password" class="userinput" v-model="user.confirmPassword">
+          </div>
         </div>
       </div>
-      <div class="left-right-container" id="right-container">
-        <p id="my-details-lbl">My Details</p>
-        <div class="right-details-container">
-          <div class="details-container">
-            <div class="details-lbl">
-              <p>Firstname</p>
-            </div>
-            <div class="details-input-container"><input type="text" class="userinput" v-model="user.firstname"></div>
-          </div>
-          <div class="details-container">
-            <div class="details-lbl">
-              <p>Lastname</p>
-            </div>
-            <div class="details-input-container"><input type="text" class="userinput" v-model="user.lastname"></div>
-          </div>
-          <div class="details-container">
-            <div class="details-lbl">
-              <p>Date of Birth</p>
-            </div>
-            <div class="details-input-container"><input type="date" class="userinput" v-model="user.dateOfBirth"></div>
-          </div>
-          <div class="details-container">
-            <div class="details-lbl">
-              <p>Email</p>
-            </div>
-            <div class="details-input-container"><input type="text" class="userinput" v-model="user.email"></div>
-          </div>
-          <div class="details-container">
-            <div class="details-lbl">
-              <p>Address</p>
-            </div>
-            <div class="details-input-container"><input type="text" class="userinput" v-model="user.address"></div>
-          </div>
-          <div class="details-container">
-            <div class="details-lbl">
-              <p>Contact Number</p>
-            </div>
-            <div class="details-input-container"><input type="text" class="userinput" v-model="user.contactNumber">
-            </div>
-          </div>
-          <div class="details-container">
-            <div class="details-lbl">
-              <p>Password</p>
-            </div>
-            <div class="details-input-container"><input type="password" class="userinput" v-model="user.password"></div>
-          </div>
-          <div class="details-container">
-            <div class="details-lbl">
-              <p>Confirm Password</p>
-            </div>
-            <div class="details-input-container"><input type="password" class="userinput"
-                v-model="user.confirmPassword">
-            </div>
-          </div>
-        </div>
-        <div id="right-button-container">
-          <ButtonWhite v-on:click="Reset()" text="Reset" />
-          <ButtonWhite v-on:click="UpdateProfile()" text="Save" />
-        </div>
+      <div id="right-button-container">
+        <ButtonWhite v-on:click="Reset()" text="Reset" />
+        <ButtonWhite v-on:click="UpdateProfile()" text="Save" />
       </div>
     </div>
   </div>
@@ -95,7 +80,6 @@ export default {
         contactNumber: "",
         password: "",
         confirmPassword: "",
-        profilePicture: "",
       },
       warningMessage: "",
       fullname: "",
@@ -137,7 +121,6 @@ export default {
           address: this.user.address,
           contactNumber: this.user.contactNumber,
           password: this.user.password,
-          profilePicture: this.user.profilePicture,
         });
         if (result.status == 200) {
           this.user.dateOfBirth = this.formatDate(this.user.dateOfBirth);
@@ -173,7 +156,6 @@ export default {
         this.user.address = temp.address;
         this.user.contactNumber = temp.contactNumber;
         this.user.password = temp.password;
-        this.user.profilePicture = temp.profilePicture;
         this.user.confirmPassword = "";
         this.fullname = this.user.firstname + " " + this.user.lastname
       }
@@ -209,63 +191,6 @@ export default {
   font-family: "Ysabeau Infant", sans-serif;
 }
 
-.profile-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 5px;
-}
-
-.left-right-container {
-  height: 100%;
-  margin: 5px;
-}
-
-#left-container {
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-}
-
-.left-container-item {
-  height: 45%;
-  width: 95%;
-  margin: 5px;
-  text-align: center;
-}
-
-#profile-photo-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#profile-photo-container img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  margin-bottom: 20px;
-}
-
-#username-container {
-  font-size: 34px;
-  font-weight: 600;
-}
-
-#upload-container {
-  margin-top: 20px;
-}
-
-#upload-container input {
-  margin-bottom: 20px;
-}
-
 #right-container {
   width: 75%;
   font-size: 18px;
@@ -276,13 +201,13 @@ export default {
   grid-template-columns: repeat(2, 1fr);
 }
 
-#my-details-lbl {
+#username-lbl {
   font-size: 44px;
   font-weight: 600;
   margin: 10px;
 }
 
-.details-container {
+.username {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
@@ -292,6 +217,10 @@ export default {
 
 .details-lbl {
   font-size: 24px;
+}
+
+.details-container{
+  padding: 10px;
 }
 
 .details-input-container input {

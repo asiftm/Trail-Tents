@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <div class="container">
-      <div class="left-right-container" id="left-container">
+      <div class="username" id="left-container">
         <p>This campsite is booked on these dates:</p>
         <div class="bookings" v-for="booking in bookings" :key="booking.id">
           <ul>
@@ -11,7 +11,7 @@
           </ul>
         </div>
       </div>
-      <div class="left-right-container" id="right-container">
+      <div class="username" id="right-container">
         <p>Select Available Dates and Book Now!</p>
         <div id="datepickiers-container">
           <div class="datepicker">
@@ -106,7 +106,8 @@ export default {
   },
   mounted() {
     let userInfo = localStorage.getItem("userInfo");
-    if (!userInfo) {
+    let adminInfo = localStorage.getItem("adminInfo");
+    if (!userInfo && !adminInfo) {
       this.$router.push({ name: "UserLogin" });
     }
     else {

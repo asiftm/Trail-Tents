@@ -4,13 +4,13 @@
       <p>{{ this.campsite.name }}</p>
     </div>
     <div class="campsiteContainer">
-      <div class="left-right-container" id="left-container">
+      <div class="username" id="left-container">
         <div id="img-container">
           <img :src="this.campsite.displayImage" alt="" />
-          <ButtonWhite v-on:click="ShowBookingOverlay(true)" text="Book Now!" />
+          <ButtonWhite v-if="isUser" v-on:click="ShowBookingOverlay(true)" text="Book Now!" />
         </div>
       </div>
-      <div class="left-right-container" id="right-container">
+      <div class="username" id="right-container">
         <div class="campsite_details">
           <label> Rating </label>
           <div id="rating-star-container">
@@ -32,7 +32,7 @@
         <div class="campsite_details" id="reviews">
           <div id="review-box">
             <label> Reviews (Total: {{ totalReview }}) </label>
-            <ButtonWhite v-on:click="ShowReviewOverlay(true)" text="Add Review!" />
+            <ButtonWhite v-if="isUser" v-on:click="ShowReviewOverlay(true)" text="Add Review!" />
           </div>
           <CampsiteReviewCard @totalReview="ShowTotalReview($event)" />
         </div>
@@ -78,16 +78,20 @@ export default {
       bookingOverlay: false,
       reviewOverlay: false,
       totalReview: null,
+      isUser: false,
+      isAdmin: false
     };
   },
   methods: {
     async GetCampsiteDetails() {
       try {
+        console.log(this.campsite.id)
         let result = await axios.get(
           `https://localhost:5272/CampingSite/${this.campsite.id}`
         );
         if (result.status == 200 && result.data != null) {
           this.campsite = result.data;
+          console.log(this.campsite)
         }
       } catch (error) {
         console.log(error);
@@ -111,9 +115,16 @@ export default {
   },
   mounted() {
     let userInfo = localStorage.getItem("userInfo");
-    if (!userInfo) {
+    let adminInfo = localStorage.getItem("adminInfo");
+    if (!userInfo && !adminInfo) {
       this.$router.push({ name: "UserLogin" });
     } else {
+      if (userInfo) {
+        this.isUser = true;
+      }
+      else {
+        this.sAdmin = true;
+      }
       this.campsite.id = this.$route.params.id;
       this.GetCampsiteDetails();
     }

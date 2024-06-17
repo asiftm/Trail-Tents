@@ -74,7 +74,7 @@ namespace TrailTents.Models
         {
             List<Review> reviews = new List<Review>();
             //string query = $"SELECT * FROM `review` WHERE `User_ID` = {id};";
-            string query = $"SELECT review.ID, review.Campsite_ID, review.User_ID, review.Rating, review.Comment, CONCAT(user.Firstname, ' ', user.Lastname) AS Username FROM review JOIN user ON review.User_ID = user.ID WHERE review.`User_ID` = {id};";
+            string query = $"SELECT review.ID, review.Campsite_ID, review.User_ID, review.Rating, review.Comment, CONCAT(user.Firstname, ' ', user.Lastname) AS Username FROM review JOIN user ON review.User_ID = user.ID WHERE review.`User_ID` = {id} ORDER BY review.ID DESC";
             MySqlDataReader reader = data.SelectQuery(query);
             while (reader.Read())
             {
@@ -101,11 +101,11 @@ namespace TrailTents.Models
         }
         public string GetAvgRatingByID(int campsiteID)
         {
-            string query = $"SELECT AVG(CAST(Rating AS FLOAT)) FROM `review` WHERE Campsite_ID = {campsiteID};";
+            string query = $"SELECT CAST(AVG(CAST(Rating AS FLOAT)) AS INT) FROM `review` WHERE Campsite_ID = {campsiteID};";
             MySqlDataReader reader = data.SelectQuery(query);
             while (reader.Read())
             {
-                return (reader[0].ToString().Replace(",", "."));
+                return (reader[0].ToString());
             }
             return "0";
         }

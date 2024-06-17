@@ -47,7 +47,8 @@ export default {
   },
   mounted() {
     let userInfo = localStorage.getItem("userInfo");
-    if (!userInfo) {
+    let adminInfo = localStorage.getItem("adminInfo");
+    if (!userInfo && !adminInfo) {
       this.$router.push({ name: "UserLogin" });
     } else {
       this.campsite_id = this.$route.params.id;

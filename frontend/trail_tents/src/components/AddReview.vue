@@ -33,7 +33,7 @@ export default {
       username: ""
     }
   },
-  props:{
+  props: {
     campsite_id: {
       type: Number,
       required: true
@@ -42,45 +42,46 @@ export default {
   components: {
     ButtonWhite,
   },
-methods: {
+  methods: {
     async AddReview() {
-    if (this.rating != null && this.comment != "") {
-      try {
-        let result = await axios.post("https://localhost:5272/Review", {
-          campsiteID: this.campsiteID,
-          userID: this.user_id,
-          rating: this.rating,
-          comment: this.comment,
-          username: this.user_name,
+      if (this.rating != null && this.comment != "") {
+        try {
+          let result = await axios.post("https://localhost:5272/Review", {
+            campsiteID: this.campsiteID,
+            userID: this.user_id,
+            rating: this.rating,
+            comment: this.comment,
+            username: this.user_name,
           });
-        if (result.status == 200) {
-          window.location.reload();
+          if (result.status == 200) {
+            window.location.reload();
+          }
+        }
+        catch {
+          confirm("Try again please.")
         }
       }
-      catch {
-        confirm("Try again please.")
+      else {
+        confirm("Write a comment and rate the campsite please.")
       }
-    }
-    else {
-      confirm("Write a comment and rate the campsite please.")
+    },
+    Close() {
+      this.$emit('closeReviewOverlay', false)
     }
   },
-  Close() {
-    this.$emit('closeReviewOverlay', false)
-  }
-},
-mounted() {
-  let userInfo = localStorage.getItem("userInfo");
-  if (!userInfo) {
-    this.$router.push({ name: "UserLogin" });
-  }
-  else {
-    const user = JSON.parse(userInfo);
-    this.user_id = user.id;
-    this.user_name = user.firstname+ " " + user.lastname;
-    console.log("hello")
-  }
-},
+  mounted() {
+    let userInfo = localStorage.getItem("userInfo");
+    let adminInfo = localStorage.getItem("adminInfo");
+    if (!userInfo && !adminInfo) {
+      this.$router.push({ name: "UserLogin" });
+    }
+    else {
+      const user = JSON.parse(userInfo);
+      this.user_id = user.id;
+      this.user_name = user.firstname + " " + user.lastname;
+      console.log("hello")
+    }
+  },
 }
 
 </script>
@@ -94,24 +95,24 @@ mounted() {
   border: 2px solid gray;
 }
 
-.save-btn{
+.save-btn {
   margin-top: 20px;
 }
 
-p{
+p {
   font-size: 28px;
   text-align: center;
 }
 
-label{
+label {
   font-size: 24px;
 }
 
-input{
+input {
   width: 40px;
 }
 
-#comment textarea{
+#comment textarea {
   height: 200px;
   width: 90%;
   max-width: 600px;

@@ -14,7 +14,7 @@ namespace TrailTents.Models
         public string Location { get; set; }
         public string Description { get; set; }
         public int PricePerDay { get; set; }
-        public float Rating { get; set; }
+        public int Rating { get; set; }
         public string DisplayImage { get; set; }
 
         public List<CampingSite> GetAllCampingSites()
@@ -48,7 +48,7 @@ namespace TrailTents.Models
             campingSite.Location = reader.GetString(2);
             campingSite.Description = reader.GetString(3);
             campingSite.PricePerDay = reader.GetInt32(4);
-            campingSite.Rating = reader.GetFloat(5);
+            campingSite.Rating = reader.GetInt16(5);
             campingSite.DisplayImage = reader.GetString(6);
             return campingSite;
         }
